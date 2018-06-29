@@ -1,10 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { NgxDhis2DataFilterComponent } from './ngx-dhis2-data-filter.component';
+import { containers } from './containers';
 
 @NgModule({
   imports: [],
-  declarations: [NgxDhis2DataFilterComponent],
-  exports: [NgxDhis2DataFilterComponent]
+  declarations: [...containers],
+  exports: [...containers]
 })
 export class NgxDhis2DataFilterModule {
   public static forRoot(): ModuleWithProviders {
