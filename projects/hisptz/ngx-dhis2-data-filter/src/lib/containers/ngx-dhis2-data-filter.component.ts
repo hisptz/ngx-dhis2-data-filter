@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadAllPrograms, DataFilterState } from '../store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'hisptz-ngx-dhis2-data-filter',
@@ -10,10 +12,9 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class NgxDhis2DataFilterComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private store: Store<DataFilterState>) {
+    this.store.dispatch(new LoadAllPrograms());
   }
 
+  ngOnInit() {}
 }

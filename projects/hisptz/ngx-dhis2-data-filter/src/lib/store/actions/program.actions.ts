@@ -16,7 +16,7 @@ export enum ProgramActionTypes {
  * payload. Expressing actions as classes enables powerful
  * type checking in reducer functions.
  */
-export class LoadPrograms implements Action {
+export class LoadAllPrograms implements Action {
   readonly type = ProgramActionTypes.LOAD_PROGRAMS;
 }
 
@@ -36,4 +36,4 @@ export class LoadProgramFail implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type ProgramActions = LoadPrograms | LoadProgramSuccess | LoadProgramFail;
+export type ProgramActions = LoadAllPrograms | LoadProgramSuccess | LoadProgramFail;

@@ -3,6 +3,12 @@
   "dest": "../../../dist/hisptz/ngx-dhis2-data-filter",
   "deleteDestPath": false,
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public_api.ts",
+    "externals": {
+      "@ngrx": "@ngrx",
+      "@ngrx/store": "@ngrx/store",
+      "@ngrx/store-devtools": "@ngrx/store-devtools",
+      "@ngrx/effects": "@ngrx/effects"
+    }
   }
 }
