@@ -25,7 +25,8 @@ export function reducer(state = initialState, action: ProgramActions): ProgramSt
     }
 
     case ProgramActionTypes.LOAD_PROGRAMS_SUCCESS: {
-      const entities = action.payload;
+      const { programs } = action.payload;
+      const entities = Object.assign({}, ...programs.map(program => ({ [program.id]: program })));
       return {
         ...state,
         entities

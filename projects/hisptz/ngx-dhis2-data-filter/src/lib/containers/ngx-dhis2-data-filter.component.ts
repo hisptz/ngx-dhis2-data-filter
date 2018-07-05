@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadAllPrograms, DataFilterState } from '../store';
+import { LoadEventDataValues, DataFilterState } from '../store';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 })
 export class NgxDhis2DataFilterComponent implements OnInit {
   constructor(private store: Store<DataFilterState>) {
-    this.store.dispatch(new LoadAllPrograms());
+    this.store.dispatch(new LoadEventDataValues());
   }
 
   ngOnInit() {}

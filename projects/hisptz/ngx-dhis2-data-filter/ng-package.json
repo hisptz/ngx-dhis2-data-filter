@@ -4,8 +4,9 @@
   "deleteDestPath": false,
   "lib": {
     "entryFile": "src/public_api.ts",
-    "externals": {
+    "umdModuleIds": {
       "@ngrx": "@ngrx",
+      "rxjx": "rxjx",
       "@ngrx/store": "@ngrx/store",
       "@ngrx/store-devtools": "@ngrx/store-devtools",
       "@ngrx/effects": "@ngrx/effects"

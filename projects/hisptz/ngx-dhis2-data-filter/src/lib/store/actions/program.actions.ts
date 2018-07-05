@@ -23,7 +23,7 @@ export class LoadAllPrograms implements Action {
 export class LoadProgramSuccess implements Action {
   readonly type = ProgramActionTypes.LOAD_PROGRAMS_SUCCESS;
 
-  constructor(public payload: { [id: string]: Program }) {}
+  constructor(public payload: { [id: string]: Program[] }) {}
 }
 
 export class LoadProgramFail implements Action {

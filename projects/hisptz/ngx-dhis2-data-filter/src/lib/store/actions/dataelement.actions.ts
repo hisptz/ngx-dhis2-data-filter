@@ -5,7 +5,9 @@ import { DataElement } from '../../models/programs.model';
  * enum object for all of this group's action types.
  */
 export enum DataElementActionTypes {
-  ADD_DATAELEMENTS = '[Dataelements] Add DataElements'
+  LOAD_DATAELEMENTS = '[Dataelements] Load all DataElements',
+  ADD_DATAELEMENTS = '[Dataelements] Add DataElements',
+  LOAD_DATAELEMENTS_FAIL = '[Dataelements] Load all DataElements Fail'
 }
 
 /**
@@ -16,11 +18,21 @@ export enum DataElementActionTypes {
 export class AddDataElements implements Action {
   readonly type = DataElementActionTypes.ADD_DATAELEMENTS;
 
-  constructor(public payload: { [id: string]: DataElement }) {}
+  constructor(public payload: { [id: string]: DataElement[] }) {}
+}
+
+export class LoadDataElements implements Action {
+  readonly type = DataElementActionTypes.LOAD_DATAELEMENTS;
+}
+
+export class LoadDataElementsFail implements Action {
+  readonly type = DataElementActionTypes.LOAD_DATAELEMENTS_FAIL;
+
+  constructor(public error: any) {}
 }
 
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type DataElementActions = AddDataElements;
+export type DataElementActions = AddDataElements | LoadDataElements | LoadDataElementsFail;

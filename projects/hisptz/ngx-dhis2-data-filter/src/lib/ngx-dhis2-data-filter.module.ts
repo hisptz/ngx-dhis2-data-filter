@@ -1,10 +1,12 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { containers } from './containers';
-import { reducers } from './store';
+import { reducers, effects } from './store';
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 @NgModule({
-  imports: [StoreModule.forFeature('data-filter', reducers)],
+  imports: [HttpClientModule, StoreModule.forFeature('data-filter', reducers), EffectsModule.forFeature(effects)],
   declarations: [...containers],
   exports: [...containers]
 })
