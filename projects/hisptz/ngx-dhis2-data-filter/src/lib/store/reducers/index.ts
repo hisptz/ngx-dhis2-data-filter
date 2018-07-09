@@ -1,4 +1,4 @@
-import { ActionReducerMap, createSelector } from '@ngrx/store';
+import { ActionReducerMap, createSelector, createFeatureSelector } from '@ngrx/store';
 import { reducer as programReducer, ProgramState } from './program.reducers';
 import { reducer as dataElementReducer, DataElementState } from './dataElement.reducers';
 import { reducer as programStageReducer, ProgramStageState } from './program-stage.reducers';
@@ -17,7 +17,8 @@ export const reducers: ActionReducerMap<DataFilterState> = {
   programStages: programStageReducer
 };
 
-export const getRootState = (state: DataFilterState) => state;
+export const getRootState = createFeatureSelector<DataFilterState>('data-filter');
+
 export const getProgramState: MemoizedSelector<any, any> = createSelector(
   getRootState,
   (state: DataFilterState) => state.programs

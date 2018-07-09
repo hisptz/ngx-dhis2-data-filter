@@ -7,17 +7,17 @@
     }
   },
   "appType": "APP",
-  "name": "Capture",
-  "version": "0.1",
-  "description": "Capture App",
+  "name": "DataFilter",
+  "version": "1.0.0",
+  "description": "Data Filter Demo",
   "icons": {
-    "16": "/assets/icons/track16.png",
-    "48": "/assets/icons/track48.png",
-    "128": "/assets/icons/track128.png"
+    "16": "/assets/icons/icon16.png",
+    "48": "/assets/icons/icon48.png",
+    "128": "/assets/icons/icon128.png"
   },
   "developer": {
     "name": "HISPTZ",
     "url": "https://hisptanzania.org"
   },
-  "manifest_generated_at": "Thu Jul 05 2018 11:35:46 GMT+0300 (EAT)"
+  "manifest_generated_at": "Mon Jul 09 2018 09:56:27 GMT+0300 (EAT)"
 }

@@ -4,7 +4,8 @@ import { Action } from '@ngrx/store';
  * enum object for all of this group's action types.
  */
 export enum DataFilterActionTypes {
-  EVENT_DATA_VALUE = '[DataFilters] Load Event datavalues'
+  EVENT_DATA_VALUE = '[DataFilters] Load Event datavalues',
+  LOADED_GROUP = '[DataFilters] Load group successfully'
 }
 
 /**

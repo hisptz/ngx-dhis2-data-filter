@@ -29,6 +29,8 @@ export function reducer(state = initialState, action: ProgramActions): ProgramSt
       const entities = Object.assign({}, ...programs.map(program => ({ [program.id]: program })));
       return {
         ...state,
+        loading: false,
+        loaded: true,
         entities
       };
     }
@@ -37,6 +39,8 @@ export function reducer(state = initialState, action: ProgramActions): ProgramSt
       const errorMessage = action.error;
       return {
         ...state,
+        loading: false,
+        loaded: false,
         errorMessage
       };
     }
