@@ -1,1 +1,2 @@
-<hisptz-filter-container [programs]="programs$ | async" [programStages]="programStages$ | async" *ngIf="isLoaded$ | async"></hisptz-filter-container>
+<hisptz-filter-container [programs]="programs$ | async" [programStages]="programStages$ | async" [groupModels]="groupModels"
+    *ngIf="isDataValueLoaded$ | async"></hisptz-filter-container>

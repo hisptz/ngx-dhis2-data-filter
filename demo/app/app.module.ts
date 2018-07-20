@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
-import { NgxDhis2DataFilterModule } from '@hisptz/ngx-dhis2-data-filter';
+import { NgxDhis2DataFilterModule } from '../../projects/hisptz/ngx-dhis2-data-filter/src/lib/ngx-dhis2-data-filter.module';
 
 @NgModule({
   declarations: [AppComponent],

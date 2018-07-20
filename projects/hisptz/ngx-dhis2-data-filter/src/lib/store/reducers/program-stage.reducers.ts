@@ -19,6 +19,7 @@ export function reducer(state = initialState, action: ProgramStageActions): Prog
     case ProgramStageActionTypes.LOAD_PROGRAM_STAGES: {
       return {
         ...state,
+        loaded: false,
         loading: true
       };
     }

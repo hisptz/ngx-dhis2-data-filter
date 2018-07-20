@@ -5,7 +5,7 @@ import { selectProgramEntities, selectProgramLoaded, selectProgramLoading } from
 
 export const getAllProgramEntities: MemoizedSelector<any, any> = createSelector(getProgramState, selectProgramEntities);
 export const getProgramLoading: MemoizedSelector<any, any> = createSelector(getProgramState, selectProgramLoading);
-export const getProgramLoaded: MemoizedSelector<any, any> = createSelector(getProgramState, selectProgramLoaded);
+export const getProgramLoaded: MemoizedSelector<any, boolean> = createSelector(getProgramState, selectProgramLoaded);
 
 export const getAllPrograms: MemoizedSelector<any, any> = createSelector(getAllProgramEntities, entities => {
   return Object.keys(entities).map(id => entities[id]);

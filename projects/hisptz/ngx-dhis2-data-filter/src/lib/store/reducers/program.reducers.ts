@@ -20,7 +20,8 @@ export function reducer(state = initialState, action: ProgramActions): ProgramSt
     case ProgramActionTypes.LOAD_PROGRAMS: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        loaded: false
       };
     }
 
