@@ -1,8 +1,9 @@
 <div class="data-filter-group-selection">
-  <button class="btn btn-outline-secondary btn-sm data-filter-group-btn" (click)="toggleDataFilterGroupList($event)">
+  <button class="btn btn-outline-secondary btn-sm data-filter-group-btn" (click)="toggleDataFilterGroupList($event)" (hisptzClickOutside)="closeDataFilterGroupList($event)">
     <span>{{ selectedGroup?.name || 'Select'}}</span>
     <span>
       <img src="assets/icons/arrow-down.png" alt="">
     </span>
   </button>
+  <hisptz-group-list [groupList]="groupList"></hisptz-group-list>
 </div>

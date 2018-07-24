@@ -1,5 +1,4 @@
 import { GroupSelectionComponent } from './group-selection/group-selection.component';
+import { GroupListComponent } from './group-list/group-list.component';
 
-export const components: any[] = [GroupSelectionComponent];
-
-export * from './group-selection/group-selection.component';
+export const components: any[] = [GroupSelectionComponent, GroupListComponent];

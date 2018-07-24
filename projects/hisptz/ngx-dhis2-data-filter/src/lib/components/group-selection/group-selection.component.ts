@@ -6,11 +6,21 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./group-selection.component.css']
 })
 export class GroupSelectionComponent implements OnInit {
-  @Input() selectedGroup;
-  constructor() {}
+  @Input() public groupList;
+
+  public showDataFilterGroupList: boolean;
+
+  constructor() {
+    this.showDataFilterGroupList = false;
+  }
   ngOnInit() {}
 
   toggleDataFilterGroupList(event) {
     event.stopPropagation();
+  }
+
+  closeDataFilterGroupList(event) {
+    event.stopPropagation();
+    console.log(event);
   }
 }

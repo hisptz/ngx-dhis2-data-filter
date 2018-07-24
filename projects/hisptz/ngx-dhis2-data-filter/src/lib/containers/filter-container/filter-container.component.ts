@@ -28,7 +28,8 @@ export class FilterContainerComponent implements OnInit {
       { id: '.EXPECTED_REPORTS', name: 'Expected Reports' }
     ]
   };
-  public groups: any[];
+  public groups: Group[];
+  public groupList: Group[];
 
   constructor() {}
 
@@ -56,8 +57,7 @@ export class FilterContainerComponent implements OnInit {
       )
       .reduce((acc, cur) => acc.concat(cur), []);
     this.dataItems = { ...this.dataItems, programs, attributes, programStages };
-    this.groups = this.initialGoupList(['ALL']);
-    console.log(this.groups);
+    this.groupList = this.initialGoupList(['ALL']);
   }
 
   // Helper function to get data groups
@@ -77,10 +77,10 @@ export class FilterContainerComponent implements OnInit {
     return { de, pr, pa, prStages };
   }
 
-  getSelectedGroupList(slectedOptions = [], group: Group, selectedItems = []) {
+  getSelectedGroupList(selectedOptions = [], group: Group, selectedItems = []) {
     const { de, pr, pa } = this.getDataItems();
     const currentGroupList = [];
-    if (slectedOptions.includes('ALL') || slectedOptions.includes('pr')) {
+    if (selectedOptions.includes('ALL') || selectedOptions.includes('pr')) {
       if (group.id === 'ALL') {
         currentGroupList.push(...de, ...pa);
       } else {
@@ -103,7 +103,7 @@ export class FilterContainerComponent implements OnInit {
     console.log({ option });
   }
 
-  initialGoupList(options = []) {
+  initialGoupList(options = []): Group[] {
     const currentGroupList = [];
 
     const data: any = this.getDataItems();
