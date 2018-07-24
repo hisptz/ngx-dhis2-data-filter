@@ -1,3 +1,17 @@
-<p>
-  filter-container works!
-</p>
+<div class="data-filter-container">
+  <div class="data-filter-options">
+    <ul class="data-filter-options-icon">
+      <li *ngFor="let option of dataFilterOptions">
+        <a (click)="toggleDataFilterOption(option, $event)" [ngClass]="{
+                'btn': true,
+                'btn-sm': true,
+                'btn-info': option.selected,
+                'btn-default': !option.selected
+               }" title="Click to see {{option.name}}">
+          {{option.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <hisptz-group-selection [selectedGroup]="selectedGroup"></hisptz-group-selection>
+</div>

@@ -10,7 +10,7 @@ export class FilterContainerComponent implements OnInit {
   @Input() programs;
   @Input() programStages;
   @Input() hiddenDataElements: any = [];
-  @Input() groupModels: any = [];
+  @Input() dataFilterOptions: any = [];
   public dataItems: any = {
     dataElements: [],
     indicators: [],
@@ -96,6 +96,11 @@ export class FilterContainerComponent implements OnInit {
     }
     const groupWithoutHiddenItems = currentGroupList.filter(({ id }) => !this.hiddenDataElements.includes(id));
     return sortBy(groupWithoutHiddenItems, 'name');
+  }
+
+  toggleDataFilterOption(option, event) {
+    event.stopPropagation();
+    console.log({ option });
   }
 
   initialGoupList(options = []) {

@@ -16,7 +16,7 @@ import { Store } from '@ngrx/store';
   styles: []
 })
 export class NgxDhis2DataFilterComponent {
-  @Input() groupModels: any = [];
+  @Input() dataFilterOptions: any = [];
   public programStages$: Observable<ProgramStage[]>;
   public isDataValueLoaded$: Observable<boolean>;
   public programs$: Observable<Program[]>;

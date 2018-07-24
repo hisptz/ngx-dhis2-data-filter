@@ -1,5 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { containers } from './containers';
+import { components } from './components';
 import { CommonModule } from '@angular/common';
 import { reducers, effects } from './store';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,8 +14,8 @@ import { StoreModule } from '@ngrx/store';
     StoreModule.forFeature('data-filter', reducers),
     EffectsModule.forFeature(effects)
   ],
-  declarations: [...containers],
-  exports: [...containers]
+  declarations: [...containers, ...components],
+  exports: [...containers, ...components]
 })
 export class NgxDhis2DataFilterModule {
   public static forRoot(): ModuleWithProviders {
