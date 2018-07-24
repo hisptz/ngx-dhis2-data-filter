@@ -9,6 +9,7 @@ export class GroupSelectionComponent implements OnInit {
   @Input() public groupList;
 
   public showDataFilterGroupList: boolean;
+  @Input() public selectedGroup;
 
   constructor() {
     this.showDataFilterGroupList = false;
@@ -17,10 +18,16 @@ export class GroupSelectionComponent implements OnInit {
 
   toggleDataFilterGroupList(event) {
     event.stopPropagation();
+    this.showDataFilterGroupList = !this.showDataFilterGroupList;
   }
 
   closeDataFilterGroupList(event) {
     event.stopPropagation();
-    console.log(event);
+    this.showDataFilterGroupList = false;
+  }
+
+  closeList(event) {
+    const { showList } = event;
+    this.showDataFilterGroupList = showList;
   }
 }

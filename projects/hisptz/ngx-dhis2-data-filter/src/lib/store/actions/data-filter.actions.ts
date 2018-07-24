@@ -5,7 +5,8 @@ import { Action } from '@ngrx/store';
  */
 export enum DataFilterActionTypes {
   EVENT_DATA_VALUE = '[DataFilters] Load Event datavalues',
-  LOADED_GROUP = '[DataFilters] Load group successfully'
+  LOADED_GROUP = '[DataFilters] Load group successfully',
+  SELECT_GROUP = '[DataFilters] Select group'
 }
 
 /**
@@ -17,8 +18,13 @@ export class LoadEventDataValues implements Action {
   readonly type = DataFilterActionTypes.EVENT_DATA_VALUE;
 }
 
+export class SelectDataFilterGroup implements Action {
+  readonly type = DataFilterActionTypes.SELECT_GROUP;
+  constructor(public group: any) {}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type ClassActions = LoadEventDataValues;
+export type DataFilterActions = LoadEventDataValues | SelectDataFilterGroup;

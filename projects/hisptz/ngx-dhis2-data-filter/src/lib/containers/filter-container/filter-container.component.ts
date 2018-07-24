@@ -11,6 +11,7 @@ export class FilterContainerComponent implements OnInit {
   @Input() programStages;
   @Input() hiddenDataElements: any = [];
   @Input() dataFilterOptions: any = [];
+  @Input() selectedGroup: Group;
   public dataItems: any = {
     dataElements: [],
     indicators: [],

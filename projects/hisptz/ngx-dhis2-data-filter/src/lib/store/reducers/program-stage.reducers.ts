@@ -1,5 +1,6 @@
 import { ProgramStageActions, ProgramStageActionTypes } from '../actions';
 import { ProgramStage } from '../../models/programs.model';
+
 export interface ProgramStageState {
   loading: boolean;
   loaded: boolean;
