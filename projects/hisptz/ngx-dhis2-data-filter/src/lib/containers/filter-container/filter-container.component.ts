@@ -1,4 +1,13 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  OnInit,
+  SimpleChanges,
+  OnChanges,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'hisptz-filter-container',
@@ -13,6 +22,8 @@ export class FilterContainerComponent implements OnInit, OnChanges {
   @Input() dataFilterOptions: any = [];
   @Input() selectedGroup: Group;
   @Input() selectedItems: any = {};
+
+  @Output() emitSelectedDataItems: EventEmitter<any> = new EventEmitter();
 
   public dataItems: any = {
     dataElements: [],
@@ -46,6 +57,9 @@ export class FilterContainerComponent implements OnInit, OnChanges {
     const selectedOptions = this.dataFilterOptions.filter(({ selected }) => selected).map(({ prefix }) => prefix);
     if (selectedGroup && !selectedGroup.firstChange) {
       this.setAvailableItems(this.getSelectedGroupList(selectedOptions, this.selectedGroup));
+    }
+    if (selectedItems && !selectedItems.firstChange) {
+      this.emitSelectedDataItems.emit(selectedItems.currentValue);
     }
   }
 

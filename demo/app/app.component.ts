@@ -12,6 +12,10 @@ export class AppComponent {
   constructor() {
     this.dataFilterOptions = DATA_FILTER_OPTIONS;
   }
+
+  dispatchSelectedDataItems(event) {
+    console.log(event);
+  }
 }
 
 export const DATA_FILTER_OPTIONS: any[] = [

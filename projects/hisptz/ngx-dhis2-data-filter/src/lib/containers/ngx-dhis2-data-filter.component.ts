@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
   LoadEventDataValues,
   DataFilterState,
@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 })
 export class NgxDhis2DataFilterComponent {
   @Input() dataFilterOptions: any = [];
+  @Output() dispatchSelectedDataItems: EventEmitter<any> = new EventEmitter();
   public programStages$: Observable<ProgramStage[]>;
   public isDataValueLoaded$: Observable<boolean>;
   public programs$: Observable<Program[]>;
@@ -31,5 +32,9 @@ export class NgxDhis2DataFilterComponent {
     this.isDataValueLoaded$ = this.store.select(getDataValueIsLoaded);
     this.selectedGroup$ = this.store.select(getSelectedGroup);
     this.selectedItems$ = this.store.select(getSelectedItems);
+  }
+
+  emitSelectedDataItems(event) {
+    this.dispatchSelectedDataItems.emit(event);
   }
 }

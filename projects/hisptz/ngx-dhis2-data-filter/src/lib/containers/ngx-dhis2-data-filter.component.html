@@ -1,2 +1,2 @@
 <hisptz-filter-container [programs]="programs$ | async" [programStages]="programStages$ | async" [dataFilterOptions]="dataFilterOptions"
-    *ngIf="isDataValueLoaded$ | async" [selectedGroup]="selectedGroup$ | async" [selectedItems]="selectedItems$ | async"></hisptz-filter-container>
+    *ngIf="isDataValueLoaded$ | async" [selectedGroup]="selectedGroup$ | async" [selectedItems]="selectedItems$ | async" (emitSelectedDataItems)="emitSelectedDataItems($event)"></hisptz-filter-container>
