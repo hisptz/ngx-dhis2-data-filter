@@ -2,10 +2,15 @@ import { DataFilterActionTypes, DataFilterActions } from '../actions/data-filter
 
 export interface DataFilterState {
   selectedGroup: any;
+  selectedItems: any;
 }
 
 const initialState: DataFilterState = {
-  selectedGroup: null
+  selectedGroup: {},
+  selectedItems: {
+    ids: [],
+    items: []
+  }
 };
 
 export function reducer(state = initialState, action: DataFilterActions): DataFilterState {
@@ -13,7 +18,14 @@ export function reducer(state = initialState, action: DataFilterActions): DataFi
     case DataFilterActionTypes.SELECT_GROUP:
       return {
         ...state,
-        selectedGroup: action.group
+        selectedGroup: action.group,
+        selectedItems: initialState.selectedItems
+      };
+
+    case DataFilterActionTypes.SELECT_DATAITEMS:
+      return {
+        ...state,
+        selectedItems: action.dataItems
       };
 
     default:
@@ -22,3 +34,4 @@ export function reducer(state = initialState, action: DataFilterActions): DataFi
 }
 
 export const selectSelectedGroup = (state: DataFilterState) => state.selectedGroup;
+export const selectSelectedItems = (state: DataFilterState) => state.selectedItems;

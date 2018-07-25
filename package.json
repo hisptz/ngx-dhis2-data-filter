@@ -26,6 +26,7 @@
     "@ngrx/entity": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "@ngrx/store-devtools": "^6.0.1",
+    "angular2-virtual-scroll": "^0.4.7",
     "bootstrap": "^4.1.2",
     "core-js": "^2.5.4",
     "d2-manifest": "^1.0.0",

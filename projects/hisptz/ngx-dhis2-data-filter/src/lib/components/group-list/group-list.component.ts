@@ -21,7 +21,7 @@ export class GroupListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.groupList);
+    // console.log(this.groupList);
   }
 
   selectGroupClick(group) {

@@ -5,6 +5,7 @@ import {
   getAllPrograms,
   getAllProgramStages,
   getDataValueIsLoaded,
+  getSelectedItems,
   getSelectedGroup
 } from '../store';
 import { Observable } from 'rxjs';
@@ -21,6 +22,7 @@ export class NgxDhis2DataFilterComponent {
   public isDataValueLoaded$: Observable<boolean>;
   public programs$: Observable<Program[]>;
   public selectedGroup$: Observable<any>;
+  public selectedItems$: Observable<any>;
 
   constructor(private store: Store<DataFilterState>) {
     this.store.dispatch(new LoadEventDataValues());
@@ -28,5 +30,6 @@ export class NgxDhis2DataFilterComponent {
     this.programStages$ = this.store.select(getAllProgramStages);
     this.isDataValueLoaded$ = this.store.select(getDataValueIsLoaded);
     this.selectedGroup$ = this.store.select(getSelectedGroup);
+    this.selectedItems$ = this.store.select(getSelectedItems);
   }
 }

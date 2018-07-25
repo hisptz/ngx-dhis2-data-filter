@@ -2,8 +2,20 @@
   "name": "@hisptz/ngx-dhis2-data-filter",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
-    "ngx-dhis2-http-client": "^1.0.2"
+    "@angular/animations": "^6.0.3",
+    "@angular/common": "^6.0.3",
+    "@angular/compiler": "^6.0.3",
+    "@angular/core": "^6.0.3",
+    "@angular/forms": "^6.0.3",
+    "@angular/http": "^6.0.3",
+    "@angular/platform-browser": "^6.0.3",
+    "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/router": "^6.0.3",
+    "@ngrx/effects": "^6.0.1",
+    "@ngrx/entity": "^6.0.1",
+    "@ngrx/store": "^6.0.1",
+    "@ngrx/store-devtools": "^6.0.1",
+    "angular2-virtual-scroll": "^0.4.7",
+    "bootstrap": "^4.1.2"
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'hisptz-filter-container',
@@ -6,12 +6,14 @@ import { Component, ChangeDetectionStrategy, Input, OnInit, SimpleChanges } from
   templateUrl: './filter-container.component.html',
   styleUrls: ['./filter-container.component.css']
 })
-export class FilterContainerComponent implements OnInit {
+export class FilterContainerComponent implements OnInit, OnChanges {
   @Input() programs;
   @Input() programStages;
   @Input() hiddenDataElements: any = [];
   @Input() dataFilterOptions: any = [];
   @Input() selectedGroup: Group;
+  @Input() selectedItems: any = {};
+
   public dataItems: any = {
     dataElements: [],
     indicators: [],
@@ -29,6 +31,7 @@ export class FilterContainerComponent implements OnInit {
       { id: '.EXPECTED_REPORTS', name: 'Expected Reports' }
     ]
   };
+  public availableItems: any;
   public groups: Group[];
   public groupList: Group[];
 
@@ -36,6 +39,14 @@ export class FilterContainerComponent implements OnInit {
 
   ngOnInit() {
     this.initiateData(this.programs, this.programStages);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const { selectedGroup, selectedItems } = changes;
+    const selectedOptions = this.dataFilterOptions.filter(({ selected }) => selected).map(({ prefix }) => prefix);
+    if (selectedGroup && !selectedGroup.firstChange) {
+      this.setAvailableItems(this.getSelectedGroupList(selectedOptions, this.selectedGroup));
+    }
   }
 
   initiateData(_programs, stages) {
@@ -59,6 +70,19 @@ export class FilterContainerComponent implements OnInit {
       .reduce((acc, cur) => acc.concat(cur), []);
     this.dataItems = { ...this.dataItems, programs, attributes, programStages };
     this.groupList = this.initialGoupList(['ALL']);
+    const selectedOptions = this.dataFilterOptions.filter(({ selected }) => selected).map(({ prefix }) => prefix);
+    const groupIsSelected = Object.keys(this.selectedGroup).length;
+    if (!groupIsSelected) {
+      const dummyGroup = { id: 'ALL' };
+      this.setAvailableItems(this.getSelectedGroupList(selectedOptions, dummyGroup));
+    } else {
+      this.setAvailableItems(this.getSelectedGroupList(selectedOptions, this.selectedGroup));
+    }
+  }
+
+  setAvailableItems(available: any[]) {
+    // const { ids } = this.selectedItems;
+    this.availableItems = available;
   }
 
   // Helper function to get data groups
@@ -78,7 +102,7 @@ export class FilterContainerComponent implements OnInit {
     return { de, pr, pa, prStages };
   }
 
-  getSelectedGroupList(selectedOptions = [], group: Group, selectedItems = []) {
+  getSelectedGroupList(selectedOptions = [], group?: Group) {
     const { de, pr, pa } = this.getDataItems();
     const currentGroupList = [];
     if (selectedOptions.includes('ALL') || selectedOptions.includes('pr')) {
@@ -131,9 +155,9 @@ export class FilterContainerComponent implements OnInit {
 
 export interface Group {
   id: string;
-  programid: string;
-  group: string;
-  stageid;
+  programid?: string;
+  group?: string;
+  stageid?;
 }
 
 export const sortBy = (collection = [], key) =>

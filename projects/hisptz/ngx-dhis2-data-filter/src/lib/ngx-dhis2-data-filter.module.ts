@@ -9,10 +9,12 @@ import { reducers, effects } from './store';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 
 @NgModule({
   imports: [
     CommonModule,
+    VirtualScrollModule,
     FormsModule,
     HttpClientModule,
     StoreModule.forFeature('data-filter', reducers),
