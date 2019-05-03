@@ -1,9 +1,0 @@
-<div class="data-filter-group-selection" (hisptzClickOutside)="closeDataFilterGroupList($event)">
-  <button class="btn btn-outline-secondary btn-sm data-filter-group-btn" (click)="toggleDataFilterGroupList($event)">
-    <span>{{ selectedGroup?.name || 'Select'}}</span>
-    <span>
-      <img src="assets/icons/arrow-down.png" alt="">
-    </span>
-  </button>
-  <hisptz-group-list [groupList]="groupList" [selectedGroup]="selectedGroup" (closeList)="closeList($event)" *ngIf="showDataFilterGroupList"></hisptz-group-list>
-</div>
