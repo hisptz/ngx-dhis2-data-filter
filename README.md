@@ -1,4 +1,6 @@
-# NgxDhis2DataFilter
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
+# DHIS2 Data Selection Filter
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
