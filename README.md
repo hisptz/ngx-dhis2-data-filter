@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/interactive-apps/ngx-dhis2-data-filter.svg?branch=develop)](https://travis-ci.org/interactive-apps/ngx-dhis2-data-filter)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0b612e6f4e80f373e11c/maintainability)](https://codeclimate.com/github/interactive-apps/ngx-dhis2-data-filter/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0b612e6f4e80f373e11c/test_coverage)](https://codeclimate.com/github/interactive-apps/ngx-dhis2-data-filter/test_coverage)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
