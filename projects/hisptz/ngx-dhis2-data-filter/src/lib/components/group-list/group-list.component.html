@@ -1,9 +1,0 @@
-<div class="list-container">
-  <input type="search" class="form-control form-control-sm" placeholder="Search" [(ngModel)]="querystring">
-  <ul class=" data-filter-group-list ">
-    <li *ngFor="let item of groupList | filterByName: querystring ">
-      <a [attr.disabled]="item.disabled" (click)="selectGroupClick(item)">{{ item.name }}</a>
-    </li>
-    <li *ngIf="!groupList.length">Group not found</li>
-  </ul>
-</div>
