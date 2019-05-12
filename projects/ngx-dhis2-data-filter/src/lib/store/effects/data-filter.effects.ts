@@ -10,6 +10,8 @@ import {
   DataFilterActionTypes,
   LoadDataFilters
 } from '../actions/data-filter.actions';
+import { LoadDataElementGroups } from '../actions/data-element-group.actions';
+import { LoadDataElements } from '../actions/data-element.actions';
 
 @Injectable()
 export class DataFilterEffects {
@@ -19,7 +21,9 @@ export class DataFilterEffects {
     switchMap((action: LoadDataFilters) => [
       new LoadFunctions(action.currentUser),
       new LoadIndicatorGroups(),
-      new LoadIndicators()
+      new LoadIndicators(),
+      new LoadDataElementGroups(),
+      new LoadDataElements()
     ])
   );
   constructor(private actions$: Actions) {}

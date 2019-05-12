@@ -1,18 +1,15 @@
 import { createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 
+import { DataFilterSelection } from '../../models/data-filter-selection.model';
 import {
   DataFilterConfig,
   getDataFilterState,
   State
 } from '../reducers/data-filter.reducer';
-
 import { getFunctionLoadingStatus } from './function.selectors';
 import { getIndicatorGroupsLoadingStatus } from './indicator-group.selectors';
 import { getIndicatorsLoadingStatus } from './indicator.selectors';
-import { DATA_FILTER_SELECTIONS } from '../../constants/data-filter-selections.constant';
-import { DataFilterSelection } from '../../models/data-filter-selection.model';
-import { groupBy } from 'rxjs/operators';
 
 const getDataFilterConfig = createSelector(
   getDataFilterState,

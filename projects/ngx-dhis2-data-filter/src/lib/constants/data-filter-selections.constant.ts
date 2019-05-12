@@ -10,7 +10,8 @@ export const DATA_FILTER_SELECTIONS: DataFilterSelection[] = [
     name: 'Data elements',
     prefix: 'de',
     selected: false,
-    key: 'dataElementGroup'
+    key: 'dataElementGroup',
+    itemsReference: { key: 'dataElements', reference: 'dataElement' }
   },
   {
     name: 'Indicators',

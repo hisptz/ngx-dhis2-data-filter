@@ -95,7 +95,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   constructor(private dataFilterStore: Store<State>) {
     // Set default data filter preferences
     this.dataFilterPreferences = {
-      enabledSelections: ['in', 'fn'],
+      enabledSelections: ['in', 'fn', 'de'],
       singleSelection: false,
       showGroupsOnStartup: false,
       hideSelectedPanel: true

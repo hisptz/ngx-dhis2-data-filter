@@ -26,6 +26,16 @@ import {
   State as IndicatorState
 } from './indicator.reducer';
 
+import {
+  reducer as dataElementGroupReducer,
+  State as DataElementGroupState
+} from './data-element-group.reducer';
+
+import {
+  reducer as dataElementReducer,
+  State as DataElementState
+} from './data-element.reducer';
+
 export interface DataFilterConfig {
   activeDataFilterSelections: string[];
   currentDataFilterGroupId: string;
@@ -69,6 +79,8 @@ export interface State {
   functionRule: FunctionRuleState;
   indicatorGroup: IndicatorGroupState;
   indicator: IndicatorState;
+  dataElementGroup: DataElementGroupState;
+  dataElement: DataElementState;
 }
 
 export const dataFilterReducer: ActionReducerMap<State> = {
@@ -76,7 +88,9 @@ export const dataFilterReducer: ActionReducerMap<State> = {
   function: functionReducer,
   functionRule: functionRuleReducer,
   indicatorGroup: indicatorGroupReducer,
-  indicator: indicatorReducer
+  indicator: indicatorReducer,
+  dataElementGroup: dataElementGroupReducer,
+  dataElement: dataElementReducer
 };
 
 export const getDataFilterState = createFeatureSelector<State>('dataFilter');

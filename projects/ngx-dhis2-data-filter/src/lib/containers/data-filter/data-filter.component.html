@@ -100,21 +100,28 @@
         showGroupingPanel ? 'data-filter-full-width' : ''
       }}"
     >
-      <span
-        >Available ({{
+      <span class="badge badge-secondary data-filter-badge"
+        >{{
           (
             dataFilterItems$
             | async
             | removeSelectedItems: selectedItems
             | filterByName: dataItemSearchTerm
           ).length
-        }})</span
+        }}
+        Available</span
       >
-      <a (click)="onSelectAllItems($event)">&raquo;</a>
+      <button class="btn btn-sm btn-light" (click)="onSelectAllItems($event)">
+        &raquo;
+      </button>
     </div>
     <div *ngIf="!showGroupingPanel" class="data-filter-selected-header ">
-      <a (click)="onDeselectAllItems($event)">&laquo;</a>
-      <span>Selected ({{ selectedItems.length }})</span>
+      <button class="btn btn-sm btn-light" (click)="onDeselectAllItems($event)">
+        &laquo;
+      </button>
+      <span class="badge badge-primary data-filter-badge"
+        >{{ selectedItems.length }} Selected</span
+      >
     </div>
 
     <div
@@ -200,7 +207,9 @@
           title="click to unselect item"
         >
           <a (click)="onRemoveDataItem({ dataItem: item }, $event)">
-            {{ item.name }}
+            <span class="badge badge-info">{{ item.type | readableName }}</span
+            >&nbsp;
+            <span>{{ item.name }}</span>
           </a>
         </li>
         <li *ngIf="selectedItems.length > 100">
@@ -234,22 +243,22 @@
 
 <div class="data-filter-btns">
   <button
-    class="btn btn-sm data-filter-action-btn"
+    class="btn btn-sm btn-light"
     [disabled]="selectedItems.length === 0"
     (click)="onDeselectAllItems($event)"
     title="Unselect all selected items"
   >
-    EMPTY
-  </button>
+    EMPTY</button
+  >&nbsp;
   <button
-    class="btn btn-sm data-filter-action-btn"
+    class="btn btn-sm btn-light"
     title="Close data filter"
     (click)="close($event)"
   >
-    CLOSE
-  </button>
+    CLOSE</button
+  >&nbsp;
   <button
-    class="btn btn-sm data-filter-action-btn"
+    class="btn btn-sm btn-light"
     title="Update visualization(s) with selected items"
     [disabled]="selectedItems.length === 0"
     (click)="onDataFilterUpdate($event)"

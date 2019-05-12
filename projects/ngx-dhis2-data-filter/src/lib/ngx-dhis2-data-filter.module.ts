@@ -22,6 +22,9 @@ import { IndicatorEffects } from './store/effects/indicator.effects';
 import { IndicatorGroupEffects } from './store/effects/indicator-group.effects';
 import { dataFilterReducer } from './store/reducers/data-filter.reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { DataElementEffects } from './store/effects/data-element.effects';
+import { DataElementGroupEffects } from './store/effects/data-element-group.effects';
+import { ReadableNamePipe } from './pipes/readable-name.pipe';
 
 @NgModule({
   imports: [
@@ -37,7 +40,9 @@ import { HttpClientModule } from '@angular/common/http';
       FunctionEffects,
       FunctionRuleEffects,
       IndicatorEffects,
-      IndicatorGroupEffects
+      IndicatorGroupEffects,
+      DataElementGroupEffects,
+      DataElementEffects
     ])
   ],
   declarations: [
@@ -47,8 +52,10 @@ import { HttpClientModule } from '@angular/common/http';
     DataFilterComponent,
     AddUnderscorePipe,
     OrderPipe,
+    ReadableNamePipe,
     RemoveSelectedItemsPipe,
-    FilterByNamePipe
+    FilterByNamePipe,
+    ReadableNamePipe
   ],
   exports: [DataFilterComponent]
 })

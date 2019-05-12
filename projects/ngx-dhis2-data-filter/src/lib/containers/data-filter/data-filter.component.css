@@ -206,7 +206,7 @@
 .data-filter-available-body,
 .data-filter-selected-body {
   padding: 0.2em;
-  min-height: 150px;
+  min-height: 200px;
   overflow: hidden;
 }
 
@@ -267,33 +267,23 @@
 }
 
 .data-filter-btns {
-  width: 100%;
-  border-top: solid thin #fafafa;
+  margin-top: 10px;
   display: flex;
   justify-content: flex-end;
-  padding-top: 0.2em;
-  padding-right: 5px;
+  font-size: 12px;
 }
 
-.data-filter-action-btn {
+.data-filter-btns button {
   background-color: transparent;
-  border: none;
-  outline: none;
-  margin-left: 5px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  outline: none;
-  color: #777777;
-  cursor: pointer;
-}
-
-.data-filter-action-btn:hover {
-  color: #222222;
 }
 
 .data-filter-full-width {
   grid-column: span 2;
+}
+
+.data-filter-badge {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  height: 22px;
 }

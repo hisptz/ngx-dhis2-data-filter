@@ -1,0 +1,53 @@
+import { createSelector } from '@ngrx/store';
+import * as _ from 'lodash';
+
+import { DataElementGroup } from '../../models/data-element-group.model';
+import { DataElement } from '../../models/data-element.model';
+import {
+  getDataFilterState,
+  State as DataFilterState
+} from '../reducers/data-filter.reducer';
+import { adapter, State } from '../reducers/data-element-group.reducer';
+import { getDataElementEntities } from './data-element.selectors';
+
+const getDataElementGroupState = createSelector(
+  getDataFilterState,
+  (state: DataFilterState) => state.dataElementGroup
+);
+
+export const { selectAll: getAllDataElementGroups } = adapter.getSelectors(
+  getDataElementGroupState
+);
+
+export const getDataElementGroupsInitiatedStatus = createSelector(
+  getDataElementGroupState,
+  (state: State) => state.loadInitiated
+);
+
+export const getDataElementGroupsLoadingStatus = createSelector(
+  getDataElementGroupState,
+  (state: State) => state.loading
+);
+
+export const getDataElementGroups = createSelector(
+  getAllDataElementGroups,
+  getDataElementEntities,
+  (
+    dataElementGroups: DataElementGroup[],
+    dataElementEntities: { [id: string]: DataElement }
+  ) => {
+    return _.map(dataElementGroups, (dataElementGroup: DataElementGroup) => {
+      return {
+        id: dataElementGroup.id,
+        name: dataElementGroup.name,
+        items: _.filter(
+          _.map(
+            dataElementGroup.dataElements || [],
+            (dataElementId: string) => dataElementEntities[dataElementId]
+          ),
+          dataElement => dataElement
+        )
+      };
+    });
+  }
+);
