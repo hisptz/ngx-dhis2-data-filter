@@ -39,7 +39,11 @@
             &nbsp;
           </div>
           {{ group.name }}&nbsp;
-          <small>({{ group.members.length }} selected)</small>
+          <span
+            *ngIf="group.members && group.members.length > 0"
+            class="badge badge-primary"
+            >{{ group.members.length }} selected</span
+          >
         </div>
         <div class="data-filter-group__item-header-btns">
           <button

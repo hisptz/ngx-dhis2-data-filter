@@ -4,16 +4,9 @@
 }
 
 .data-filter-content {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding: 0.2em;
-}
-
-.data-filter-groups-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: span 1;
 }
 
 .data-filter-selections-block {

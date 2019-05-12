@@ -1,6 +1,6 @@
 <div class="data-filter-container">
   <!-- data filter section -->
-  <div class="data-filter-content">
+  <div class="data-filter-content" [style.flex]="1">
     <div class="data-filter-selections-block">
       <ul class="data-filter-selections">
         <li *ngFor="let dataFilterSelection of dataFilterSelections">
@@ -225,7 +225,11 @@
   <!-- end of data filter section -->
 
   <!-- data filter groups -->
-  <div class="data-filter-groups-container" *ngIf="showGroupingPanel">
+  <div
+    class="data-filter-groups-container"
+    [style.flex]="2"
+    *ngIf="showGroupingPanel"
+  >
     <ngx-dhis2-data-filter-groups
       [dataGroups]="selectedGroups"
       [selectedGroupId]="selectedGroupId"
