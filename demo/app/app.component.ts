@@ -6,27 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  dataFilterOptions: any[];
-  title = 'app';
+  title = 'ngx-dhis2-data-filter';
+  dataObject: any;
+  action: string;
+  dataFilterConfig = {
+    singleSelection: false
+  };
+  selectedDataItems: any[] = [];
 
-  constructor() {
-    this.dataFilterOptions = DATA_FILTER_OPTIONS;
-  }
-
-  dispatchSelectedDataItems(event) {
-    console.log(event);
+  onDataUpdate(dataObject, action) {
+    console.log(dataObject);
+    this.dataObject = dataObject;
+    this.action = action;
   }
 }
-
-export const DATA_FILTER_OPTIONS: any[] = [
-  {
-    name: 'All',
-    prefix: 'ALL',
-    selected: false
-  },
-  {
-    name: 'Event datavalues',
-    prefix: 'pr',
-    selected: true
-  }
-];
