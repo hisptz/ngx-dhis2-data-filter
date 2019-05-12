@@ -11,7 +11,9 @@
 }
 
 .data-filter-groups-container {
-  width: 400px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: span 1;
 }
 
 .data-filter-selections-block {

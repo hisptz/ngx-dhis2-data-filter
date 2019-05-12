@@ -66,10 +66,10 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   dataGroups: any[] = [];
 
   @Output()
-  dataFilterUpdate: EventEmitter<any> = new EventEmitter<any>();
+  update: EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  dataFilterClose: EventEmitter<any> = new EventEmitter<any>();
+  close: EventEmitter<any> = new EventEmitter<any>();
 
   showGroupingPanel: boolean;
   selectedItems$: Observable<any>;
@@ -194,6 +194,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   }
 
   onUpdateDataItem(dataItem: any) {
+    console.log(dataItem);
     const dataItemIndex = this.selectedItems.indexOf(
       _.find(this.selectedItems, ['id', dataItem ? dataItem.id : ''])
     );
@@ -303,14 +304,14 @@ export class DataFilterComponent implements OnInit, OnDestroy {
     };
   }
 
-  close(e) {
+  onClose(e) {
     e.stopPropagation();
-    this.dataFilterClose.emit(this.emit());
+    this.close.emit(this.emit());
   }
 
   onDataFilterUpdate(e) {
     e.stopPropagation();
-    this.dataFilterUpdate.emit(this.emit());
+    this.update.emit(this.emit());
   }
 
   onToggleDataFilterSelection(toggledDataFilterSelection, event) {
@@ -368,6 +369,6 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.dataFilterClose.emit(this.emit());
+    this.close.emit(this.emit());
   }
 }
