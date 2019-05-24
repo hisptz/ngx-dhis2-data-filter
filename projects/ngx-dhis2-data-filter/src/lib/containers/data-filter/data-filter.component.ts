@@ -103,8 +103,8 @@ export class DataFilterComponent implements OnInit, OnDestroy {
 
     // Set default data group preferences
     this.dataGroupPreferences = {
-      maximumNumberOfGroups: 6,
-      maximumItemPerGroup: 3,
+      maximumNumberOfGroups: 0,
+      maximumItemPerGroup: 0,
       ignoreMaximumRestrictions: false
     };
 
@@ -194,7 +194,6 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   }
 
   onUpdateDataItem(dataItem: any) {
-    console.log(dataItem);
     const dataItemIndex = this.selectedItems.indexOf(
       _.find(this.selectedItems, ['id', dataItem ? dataItem.id : ''])
     );
