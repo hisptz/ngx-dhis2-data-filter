@@ -205,11 +205,6 @@
   margin-top: 10px;
   display: flex;
   justify-content: flex-end;
-  font-size: 12px;
-}
-
-.data-filter-btns button {
-  background-color: transparent;
 }
 
 .data-filter-full-width {
