@@ -8,6 +8,7 @@ import { NgxDhis2DataFilterModule } from 'projects/ngx-dhis2-data-filter/src/pub
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,8 @@ import { AppComponent } from './app.component';
     /**
      * Dev tool, enabled only in development mode
      */
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
