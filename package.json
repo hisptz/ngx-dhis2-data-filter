@@ -31,7 +31,7 @@
     "@ngrx/store": "^7.4.0",
     "@ngrx/store-devtools": "^7.4.0",
     "angular2-virtual-scroll": "^0.4.7",
-    "bootstrap": "^4.1.2",
+    "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "d2-manifest": "^1.0.0",
     "font-awesome": "^4.7.0",
