@@ -9,7 +9,8 @@ import {
   mergeMap,
   take,
   tap,
-  withLatestFrom
+  withLatestFrom,
+  concatMap
 } from 'rxjs/operators';
 
 import { getStandardizedFunctionRulesFromFunctionList } from '../../helpers/get-standardized-function-rule-from-function-list.helpers';
@@ -28,7 +29,7 @@ import {
   SaveFunctionFails,
   SaveFunctionSuccess
 } from '../actions/function.actions';
-import { State } from '../reducers/function.reducer';
+import { FunctionState } from '../reducers/function.reducer';
 import {
   getFunctionById,
   getFunctionInitiatedStatus
@@ -39,7 +40,11 @@ export class FunctionEffects {
   @Effect({ dispatch: false })
   loadFunctions$: Observable<any> = this.actions$.pipe(
     ofType(FunctionActionTypes.LoadFunctions),
-    withLatestFrom(this.functionStore.select(getFunctionInitiatedStatus)),
+    concatMap((action: LoadFunctions) =>
+      of(action).pipe(
+        withLatestFrom(this.functionStore.select(getFunctionInitiatedStatus))
+      )
+    ),
     tap(([action, functionInitiated]: [LoadFunctions, boolean]) => {
       if (!functionInitiated) {
         this.functionStore.dispatch(new LoadFunctionsInitiated());
@@ -107,6 +112,6 @@ export class FunctionEffects {
   constructor(
     private actions$: Actions,
     private functionService: FunctionService,
-    private functionStore: Store<State>
+    private functionStore: Store<FunctionState>
   ) {}
 }

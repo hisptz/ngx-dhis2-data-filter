@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { NgxDhis2HttpClientService } from '@iapps/ngx-dhis2-http-client';
 import * as _ from 'lodash';
-import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { forkJoin, Observable, of, throwError, zip } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
-import { prepareFunctionForSaving } from '../helpers/prepare-function-for-saving.helper';
-import { generateUid } from '../helpers/generate-uid.helper';
-import { FunctionObject } from '../models/function.model';
 import { COMPLETENESS_FUNCTION } from '../constants/completeness-function.constant';
 import { EARLY_COMPLETENESS_FUNCTION } from '../constants/early-completeness.constant';
-import { REPORTING_RATE_BY_FILLED_DATA } from '../constants/reporting-rate-by-filled-data-function.constant';
 import { PREDICTOR_FUNCTION } from '../constants/predictor-function.constant';
+import { REPORTING_RATE_BY_FILLED_DATA } from '../constants/reporting-rate-by-filled-data-function.constant';
+import { generateUid } from '../helpers/generate-uid.helper';
+import { prepareFunctionForSaving } from '../helpers/prepare-function-for-saving.helper';
+import { FunctionObject } from '../models/function.model';
 
 @Injectable({ providedIn: 'root' })
 export class FunctionService {
@@ -40,18 +40,18 @@ export class FunctionService {
     ]).pipe(mergeMap(() => this._loadAll()));
   }
 
-  private _loadAll() {
+  private _loadAll(): Observable<Function[]> {
     return this.http.get(this._dataStoreUrl).pipe(
-      mergeMap((functionIds: Array<string>) =>
-        forkJoin(
-          _.map(functionIds, (functionId: string) => this.load(functionId))
+      mergeMap((functionIds: string[]) =>
+        zip(
+          ...functionIds.map((functionId: string) => this.load(functionId))
         ).pipe(catchError(() => of([])))
       ),
       catchError(() => of([]))
     );
   }
 
-  load(id: string) {
+  load(id: string): Observable<Function> {
     return this.http.get(`${this._dataStoreUrl}/${id}`);
   }
 

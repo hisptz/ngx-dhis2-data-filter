@@ -6,7 +6,7 @@ import {
   getDataFilterState,
   State as DataFilterState
 } from '../reducers/data-filter.reducer';
-import { adapter, State } from '../reducers/function.reducer';
+import { adapter, FunctionState } from '../reducers/function.reducer';
 import {
   getFunctionRuleEntities,
   getActiveFunctionRuleId
@@ -25,22 +25,22 @@ export const {
 
 export const getFunctionInitiatedStatus = createSelector(
   getFunctionState,
-  (functionState: State) => functionState.loadInitiated
+  (functionState: FunctionState) => functionState.loadInitiated
 );
 
 export const getFunctionLoadingStatus = createSelector(
   getFunctionState,
-  (functionState: State) => functionState.loading
+  (functionState: FunctionState) => functionState.loading
 );
 
 export const getFunctionLoadedStatus = createSelector(
   getFunctionState,
-  (functionState: State) => functionState.loaded
+  (functionState: FunctionState) => functionState.loaded
 );
 
 export const getActiveFunctionId = createSelector(
   getFunctionState,
-  (functionState: State) => functionState.activeFunctionId
+  (functionState: FunctionState) => functionState.activeFunctionId
 );
 export const getActiveFunction = createSelector(
   getFunctionEntities,
