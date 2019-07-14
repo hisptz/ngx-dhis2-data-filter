@@ -9,6 +9,7 @@ import { NgxDhis2DataFilterModule } from 'projects/ngx-dhis2-data-filter/src/pub
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     DragulaModule.forRoot(),
     NgxDhis2DataFilterModule,
+    NgxDhis2HttpClientModule.forRoot({
+      namespace: 'hisptz',
+      version: 1,
+      models: {}
+    }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     /**
