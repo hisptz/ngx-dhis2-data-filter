@@ -7,7 +7,7 @@ import {
 } from '../actions/function.actions';
 import { createFeatureSelector } from '@ngrx/store';
 
-export interface State extends EntityState<FunctionObject> {
+export interface FunctionState extends EntityState<FunctionObject> {
   // additional entities state properties
   loading: boolean;
   loaded: boolean;
@@ -21,7 +21,7 @@ export const adapter: EntityAdapter<FunctionObject> = createEntityAdapter<
   FunctionObject
 >();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: FunctionState = adapter.getInitialState({
   // additional entity state properties
   loading: false,
   loaded: false,
@@ -31,7 +31,10 @@ export const initialState: State = adapter.getInitialState({
   activeFunctionId: ''
 });
 
-export function reducer(state = initialState, action: FunctionActions): State {
+export function reducer(
+  state = initialState,
+  action: FunctionActions
+): FunctionState {
   switch (action.type) {
     case FunctionActionTypes.LoadFunctionsInitiated: {
       return { ...state, loadInitiated: true };
