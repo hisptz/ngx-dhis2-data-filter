@@ -1,6 +1,11 @@
 {
   "name": "@iapps/ngx-dhis2-data-filter",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hisptz/ngx-dhis2-data-filter"
+  },
+  "license": "LGPL-3.0",
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
@@ -10,6 +15,10 @@
     "@angular/material": "^7.3.7 || ^8.0.0"
   },
   "dependencies": {
+    "@ngrx/effects": "^8.1.0",
+    "@ngrx/entity": "^8.1.0",
+    "@ngrx/store": "^8.1.0",
+    "@iapps/ngx-dhis2-http-client": "^2.0.7",
     "ng2-dragula": "^2.1.1",
     "ngx-color-picker": "^7.5.0",
     "ngx-pagination": "^3.2.1",
