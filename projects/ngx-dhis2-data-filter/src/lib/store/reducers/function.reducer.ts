@@ -1,11 +1,11 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import * as _ from 'lodash';
+
 import { FunctionObject } from '../../models/function.model';
 import {
   FunctionActions,
   FunctionActionTypes
 } from '../actions/function.actions';
-import { createFeatureSelector } from '@ngrx/store';
 
 export interface FunctionState extends EntityState<FunctionObject> {
   // additional entities state properties
