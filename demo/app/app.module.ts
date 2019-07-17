@@ -4,12 +4,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DragulaModule } from 'ng2-dragula';
-import { NgxDhis2DataFilterModule } from '@iapps/ngx-dhis2-data-filter';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
+import { NgxDhis2DataFilterModule } from 'projects/ngx-dhis2-data-filter/src/public_api';
 
 @NgModule({
   declarations: [AppComponent],
