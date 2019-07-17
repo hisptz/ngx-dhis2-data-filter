@@ -31,6 +31,7 @@ import { FunctionEffects } from './store/effects/function.effects';
 import { IndicatorGroupEffects } from './store/effects/indicator-group.effects';
 import { IndicatorEffects } from './store/effects/indicator.effects';
 import { dataFilterReducer } from './store/reducers/data-filter.reducer';
+import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { dataFilterReducer } from './store/reducers/data-filter.reducer';
     DragulaModule,
     ColorPickerModule,
     NgxPaginationModule,
+    NgxDhis2HttpClientModule,
     MatChipsModule,
     MatButtonModule,
     MatTooltipModule,

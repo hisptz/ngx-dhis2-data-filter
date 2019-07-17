@@ -8,7 +8,9 @@ export class IndicatorService {
 
   loadAll() {
     return this.http
-      .get('indicators.json?fields=id,name,code&paging=false')
+      .get(
+        'indicators.json?fields=id,name,code,numerator,denominator&paging=false'
+      )
       .pipe(map(res => res.indicators || []));
   }
 }
