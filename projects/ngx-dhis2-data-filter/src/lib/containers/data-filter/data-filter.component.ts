@@ -268,6 +268,10 @@ export class DataFilterComponent implements OnInit, OnDestroy {
               )
             : newSelectedItems;
 
+        if (this.dataFilterConfig.singleSelection) {
+          this.selectedItems = [this.selectedItems[0]];
+        }
+
         this.selectedGroups = addMembersToGroups(
           this.selectedGroups,
           this.selectedGroupId,
