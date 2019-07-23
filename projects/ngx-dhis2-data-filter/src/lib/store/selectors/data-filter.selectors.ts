@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { DataFilterSelection } from '../../models/data-filter-selection.model';
 import {
-  DataFilterConfig,
+  DataFilterState,
   getDataFilterState,
   State
 } from '../reducers/data-filter.reducer';
@@ -18,12 +18,12 @@ const getDataFilterConfig = createSelector(
 
 const getActiveDataFilterSelections = createSelector(
   getDataFilterConfig,
-  (state: DataFilterConfig) => state.activeDataFilterSelections
+  (state: DataFilterState) => state.activeDataFilterSelections
 );
 
 const getCurrentDataFilterGroupId = createSelector(
   getDataFilterConfig,
-  (state: DataFilterConfig) => state.currentDataFilterGroupId
+  (state: DataFilterState) => state.currentDataFilterGroupId
 );
 
 const getDataFilterGroupEntities = (

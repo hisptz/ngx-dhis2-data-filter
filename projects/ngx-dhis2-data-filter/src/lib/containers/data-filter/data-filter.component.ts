@@ -16,13 +16,13 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { addMembersToGroups } from '../../helpers/add-members-to-group.helper';
-import { getDataFilterSelectionsBasedOnPreferences } from '../../helpers/get-data-filter-selections-based-on-preferences.helper';
+import { getDataFilterSelectionsBasedOnConfig } from '../../helpers/get-data-filter-selections-based-on-preferences.helper';
 import { getDataGroupBasedOnDataItem } from '../../helpers/get-data-group-based-on-data-item.helper';
 import { removeAllMembersFromGroups } from '../../helpers/remove-all-members-from-groups.helper';
 import { removeMemberFromGroup } from '../../helpers/remove-member-from-group.helper';
 import { updateDataGroupInList } from '../../helpers/update-data-group-in-list.helper';
 import { ARROW_LEFT_ICON, ARROW_RIGHT_ICON, LIST_ICON } from '../../icons';
-import { DataFilterPreference } from '../../models/data-filter-preference.model';
+import { DataFilterConfig } from '../../models/data-filter-preference.model';
 import { DataFilterSelection } from '../../models/data-filter-selection.model';
 import { DataGroup } from '../../models/data-group.model';
 import { State } from '../../store/reducers/data-filter.reducer';
@@ -36,6 +36,7 @@ import {
   UpdateActiveDataFilterSelections
 } from '../../store/actions/data-filter.actions';
 import { filterByName } from '../../helpers/filter-by-name.helper';
+import { defaultDataFilterConfig } from '../../constants/data-filter-config.constant';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -51,7 +52,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   selectedGroups: any[] = [];
 
   @Input()
-  dataFilterPreferences: DataFilterPreference;
+  dataFilterConfig: DataFilterConfig;
 
   @Input()
   currentUser: any;
@@ -94,11 +95,9 @@ export class DataFilterComponent implements OnInit, OnDestroy {
 
   constructor(private dataFilterStore: Store<State>) {
     // Set default data filter preferences
-    this.dataFilterPreferences = {
-      enabledSelections: ['in', 'fn', 'de'],
-      singleSelection: false,
-      showGroupsOnStartup: false,
-      hideSelectedPanel: true
+    this.dataFilterConfig = {
+      ...defaultDataFilterConfig,
+      ...(this.dataFilterConfig || {})
     };
 
     // Set default data group preferences
@@ -127,14 +126,13 @@ export class DataFilterComponent implements OnInit, OnDestroy {
     // Load data filter items
     this.dataFilterStore.dispatch(new LoadDataFilters(this.currentUser));
     // set data filter selections
-    this.dataFilterSelections = getDataFilterSelectionsBasedOnPreferences(
-      this.dataFilterPreferences
+    this.dataFilterSelections = getDataFilterSelectionsBasedOnConfig(
+      this.dataFilterConfig
     );
 
     // Set show group status based on preferences
     this.showGroupingPanel =
-      this.dataFilterPreferences &&
-      this.dataFilterPreferences.showGroupsOnStartup;
+      this.dataFilterConfig && this.dataFilterConfig.showGroupsOnStartup;
 
     this.dataFilterGroups$ = this.dataFilterStore.select(
       getDataFilterGroups(this.dataFilterSelections)
@@ -166,7 +164,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   // this will add a selected item in a list function
   onSelectDataItem(item: any, e) {
     e.stopPropagation();
-    if (this.dataFilterPreferences.singleSelection) {
+    if (this.dataFilterConfig.singleSelection) {
       this.onDeselectAllItems();
     }
 

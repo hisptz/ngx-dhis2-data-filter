@@ -38,6 +38,7 @@
       <!-- data grouping button -->
       <button
         mat-stroked-button
+        *ngIf="dataFilterConfig.showGroupingButton"
         class="data-btn ml-2"
         matTooltip="Open grouping panel"
         (click)="onToggleGroupingPanel($event)"

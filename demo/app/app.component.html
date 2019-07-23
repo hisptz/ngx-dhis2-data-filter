@@ -25,6 +25,7 @@
         <div class="card-body" style="padding: 5px;">
           <ngx-dhis2-data-filter
             [selectedItems]="selectedDataItems"
+            [dataFilterConfig]="dataFilterConfig"
             (update)="onDataUpdate($event, 'UPDATE')"
             (close)="onDataUpdate($event, 'CLOSE')"
           ></ngx-dhis2-data-filter>

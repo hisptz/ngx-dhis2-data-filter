@@ -1,20 +1,20 @@
 import { filter as _filter, uniq as _uniq } from 'lodash';
 import { DataFilterSelection } from '../models/data-filter-selection.model';
 import { DATA_FILTER_SELECTIONS } from '../constants/data-filter-selections.constant';
-import { DataFilterPreference } from '../models/data-filter-preference.model';
-export function getDataFilterSelectionsBasedOnPreferences(
-  dataFilterPreferences: DataFilterPreference
+import { DataFilterConfig } from '../models/data-filter-preference.model';
+export function getDataFilterSelectionsBasedOnConfig(
+  dataFilterConfig: DataFilterConfig
 ) {
   // set data filter selections
   const enabledSelections = _uniq([
     'all',
-    ...(dataFilterPreferences ? dataFilterPreferences.enabledSelections : [])
+    ...(dataFilterConfig ? dataFilterConfig.enabledSelections : [])
   ]);
 
   return _filter(
     DATA_FILTER_SELECTIONS || [],
     (dataFilterSelection: DataFilterSelection) => {
-      if (!dataFilterPreferences || !dataFilterPreferences.enabledSelections) {
+      if (!dataFilterConfig || !dataFilterConfig.enabledSelections) {
         return true;
       }
 

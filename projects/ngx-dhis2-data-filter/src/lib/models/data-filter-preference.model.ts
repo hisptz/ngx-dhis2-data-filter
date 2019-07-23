@@ -1,6 +1,7 @@
-export interface DataFilterPreference {
-  singleSelection: boolean;
-  enabledSelections: string[];
-  hideSelectedPanel: boolean;
-  showGroupsOnStartup: boolean;
+export interface DataFilterConfig {
+  singleSelection?: boolean;
+  enabledSelections?: string[];
+  hideSelectedPanel?: boolean;
+  showGroupsOnStartup?: boolean;
+  showGroupingButton?: boolean;
 }
