@@ -94,12 +94,6 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   dataFilterLoading$: Observable<boolean>;
 
   constructor(private dataFilterStore: Store<State>) {
-    // Set default data filter preferences
-    this.dataFilterConfig = {
-      ...defaultDataFilterConfig,
-      ...(this.dataFilterConfig || {})
-    };
-
     // Set default data group preferences
     this.dataGroupPreferences = {
       maximumNumberOfGroups: 0,
@@ -119,6 +113,12 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Set default data filter preferences
+    this.dataFilterConfig = {
+      ...defaultDataFilterConfig,
+      ...(this.dataFilterConfig || {})
+    };
+
     // Initialize selected items
     if (!this.selectedItems || _.isPlainObject(this.selectedItems)) {
       this.selectedItems = [];
