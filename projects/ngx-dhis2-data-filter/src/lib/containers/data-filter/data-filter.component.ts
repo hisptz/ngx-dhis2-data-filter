@@ -16,13 +16,13 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { addMembersToGroups } from '../../helpers/add-members-to-group.helper';
-import { getDataFilterSelectionsBasedOnConfig } from '../../helpers/get-data-filter-selections-based-on-preferences.helper';
+import { getDataFilterSelectionsBasedOnConfig } from '../../helpers/get-data-filter-selections-based-on-config.helper';
 import { getDataGroupBasedOnDataItem } from '../../helpers/get-data-group-based-on-data-item.helper';
 import { removeAllMembersFromGroups } from '../../helpers/remove-all-members-from-groups.helper';
 import { removeMemberFromGroup } from '../../helpers/remove-member-from-group.helper';
 import { updateDataGroupInList } from '../../helpers/update-data-group-in-list.helper';
 import { ARROW_LEFT_ICON, ARROW_RIGHT_ICON, LIST_ICON } from '../../icons';
-import { DataFilterConfig } from '../../models/data-filter-preference.model';
+import { DataFilterConfig } from '../../models/data-filter-config.model';
 import { DataFilterSelection } from '../../models/data-filter-selection.model';
 import { DataGroup } from '../../models/data-group.model';
 import { State } from '../../store/reducers/data-filter.reducer';

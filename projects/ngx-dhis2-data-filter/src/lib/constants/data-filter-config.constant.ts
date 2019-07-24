@@ -1,4 +1,4 @@
-import { DataFilterConfig } from '../models/data-filter-preference.model';
+import { DataFilterConfig } from '../models/data-filter-config.model';
 
 export const defaultDataFilterConfig: DataFilterConfig = {
   enabledSelections: ['in', 'fn', 'de'],

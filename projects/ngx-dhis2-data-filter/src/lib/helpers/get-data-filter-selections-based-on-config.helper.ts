@@ -1,7 +1,7 @@
 import { filter as _filter, uniq as _uniq } from 'lodash';
 import { DataFilterSelection } from '../models/data-filter-selection.model';
 import { DATA_FILTER_SELECTIONS } from '../constants/data-filter-selections.constant';
-import { DataFilterConfig } from '../models/data-filter-preference.model';
+import { DataFilterConfig } from '../models/data-filter-config.model';
 export function getDataFilterSelectionsBasedOnConfig(
   dataFilterConfig: DataFilterConfig
 ) {
