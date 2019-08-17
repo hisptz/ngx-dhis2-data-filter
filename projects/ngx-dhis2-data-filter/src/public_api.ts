@@ -11,7 +11,7 @@ export * from './lib/models/indicator.model';
 export * from './lib/models/indicator-group.model';
 export * from './lib/models/data-element.model';
 export * from './lib/models/data-element-group.model';
-export * from './lib/models/data-filter-preference.model';
+export * from './lib/models/data-filter-config.model';
 export * from './lib/models/data-filter-selection.model';
 export * from './lib/models/data-filter.model';
 export * from './lib/models/data-group.model';
@@ -47,3 +47,6 @@ export * from './lib/services/program.service';
 
 // defaults
 export * from './lib/constants/data-filter-selections.constant';
+
+// models
+export { DataFilterConfig } from './lib/models/data-filter-config.model';

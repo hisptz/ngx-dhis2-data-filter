@@ -17,6 +17,8 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
+  code_climate:
+    repo_token: 948d2774672a4d808d8dc1e249bf6604e3aec3bf82ee70ba1c266031ed0eb8ab
 
 before_install:
   - export CHROME_BIN=chromium-browser
@@ -32,12 +34,8 @@ install:
   - npm install
 
 script:
+  # - npm run test:travis
   - npm run build
 
 notifications:
-  email:
-    recipients:
-      - rajeyw@gmail.com
-    on_failure: always
-    on_success: always
   slack: hisptz:2UQgrRwNrI14ohefnnPyzms7

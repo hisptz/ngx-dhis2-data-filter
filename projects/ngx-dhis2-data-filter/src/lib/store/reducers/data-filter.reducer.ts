@@ -33,20 +33,20 @@ import {
   State as DataElementState
 } from './data-element.reducer';
 
-export interface DataFilterConfig {
+export interface DataFilterState {
   activeDataFilterSelections: string[];
   currentDataFilterGroupId: string;
 }
 
-const initialConfig: DataFilterConfig = {
+const initialFilterState: DataFilterState = {
   activeDataFilterSelections: ['all'],
   currentDataFilterGroupId: 'all'
 };
 
 export function configReducer(
-  state = initialConfig,
+  state = initialFilterState,
   action: DataFilterActions
-): DataFilterConfig {
+): DataFilterState {
   switch (action.type) {
     case DataFilterActionTypes.UpdateActiveDataFilterSelections: {
       return {
@@ -71,7 +71,7 @@ export function configReducer(
 }
 
 export interface State {
-  filterConfig: DataFilterConfig;
+  filterConfig: DataFilterState;
   function: FunctionState;
   functionRule: FunctionRuleState;
   indicatorGroup: IndicatorGroupState;
