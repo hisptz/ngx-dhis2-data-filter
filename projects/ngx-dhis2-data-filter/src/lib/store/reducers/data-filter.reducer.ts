@@ -6,7 +6,7 @@ import {
   DataFilterActionTypes
 } from '../actions/data-filter.actions';
 
-import { reducer as functionReducer, FunctionState } from './function.reducer';
+import { functionReducer, FunctionState } from './function.reducer';
 
 import {
   reducer as functionRuleReducer,

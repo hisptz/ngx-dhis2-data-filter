@@ -1,137 +1,68 @@
-import { Action } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
-import { FunctionObject } from '../../models/function.model';
+import { ErrorMessage, User } from '@iapps/ngx-dhis2-http-client';
+import { createAction, props } from '@ngrx/store';
+
 import { FunctionRule } from '../../models/function-rule.model';
+import { FunctionObject } from '../../models/function.model';
 
-export enum FunctionActionTypes {
-  LoadFunctionsInitiated = '[Function] Load Functions initiated',
-  LoadFunctions = '[Function] Load Functions',
-  LoadFunctionsFail = '[Function] Load Functions fail',
-  AddFunction = '[Function] Add Function',
-  UpsertFunction = '[Function] Upsert Function',
-  AddFunctions = '[Function] Add Functions',
-  UpsertFunctions = '[Function] Upsert Functions',
-  UpdateFunction = '[Function] Update Function',
-  UpdateActiveFunction = '[Function] Update active Function',
-  UpdateFunctions = '[Function] Update Functions',
-  DeleteFunction = '[Function] Delete Function',
-  DeleteFunctions = '[Function] Delete Functions',
-  ClearFunctions = '[Function] Clear Functions',
-  SetActiveFunction = '[Function] Set active Function',
-  SaveFunction = '[Function] Save Function',
-  SaveFunctionSuccess = '[Function] Save Function success',
-  SaveFunctionFails = '[Function] Save Function fail'
-}
+export const loadFunctionsInitialized = createAction(
+  '[Function] Load Functions initiated'
+);
 
-export class LoadFunctionsInitiated implements Action {
-  readonly type = FunctionActionTypes.LoadFunctionsInitiated;
-}
-export class LoadFunctions implements Action {
-  readonly type = FunctionActionTypes.LoadFunctions;
+export const loadFunctions = createAction(
+  '[Function] Load Functions',
+  props<{ currentUser: User; routeParams?: any }>()
+);
 
-  constructor(public currentUser: any, public routeParams?: any) {}
-}
+export const loadFunctionsFail = createAction(
+  '[Function] Load Functions fail',
+  props<{ error: ErrorMessage }>()
+);
 
-export class LoadFunctionsFail implements Action {
-  readonly type = FunctionActionTypes.LoadFunctionsFail;
+export const addFunction = createAction(
+  '[Function] Add Function',
+  props<{ functionObject: FunctionObject }>()
+);
 
-  constructor(public error: any) {}
-}
+export const addFunctions = createAction(
+  '[Function] Add Functions',
+  props<{ functions: FunctionObject[]; functionRules: FunctionRule[] }>()
+);
 
-export class AddFunction implements Action {
-  readonly type = FunctionActionTypes.AddFunction;
+export const updateFunction = createAction(
+  '[Function] Update Function',
+  props<{ id: string; changes: Partial<FunctionObject> }>()
+);
 
-  constructor(public payload: { function: FunctionObject }) {}
-}
+export const deleteFunction = createAction(
+  '[Function] Delete Function',
+  props<{ id: string }>()
+);
 
-export class UpsertFunction implements Action {
-  readonly type = FunctionActionTypes.UpsertFunction;
+export const deleteFunctions = createAction(
+  '[Function] Delete Functions',
+  props<{ ids: string[] }>()
+);
 
-  constructor(public functionObject: FunctionObject) {}
-}
+export const saveFunction = createAction(
+  '[Function] Save Function',
+  props<{ functionObject: FunctionObject; currentUser: User }>()
+);
 
-export class AddFunctions implements Action {
-  readonly type = FunctionActionTypes.AddFunctions;
+export const saveFunctionSuccess = createAction(
+  '[Function] Save Function success',
+  props<{ functionObject: FunctionObject }>()
+);
 
-  constructor(
-    public functions: FunctionObject[],
-    public functionRules: FunctionRule[]
-  ) {}
-}
+export const saveFunctionFails = createAction(
+  '[Function] Save Function fail',
+  props<{ functionObject: FunctionObject; error: ErrorMessage }>()
+);
 
-export class UpsertFunctions implements Action {
-  readonly type = FunctionActionTypes.UpsertFunctions;
+export const setActiveFunction = createAction(
+  '[Function] Set active Function',
+  props<{ functionObject: FunctionObject }>()
+);
 
-  constructor(public payload: { functions: FunctionObject[] }) {}
-}
-
-export class UpdateFunction implements Action {
-  readonly type = FunctionActionTypes.UpdateFunction;
-
-  constructor(public id: string, public changes: Partial<FunctionObject>) {}
-}
-
-export class UpdateFunctions implements Action {
-  readonly type = FunctionActionTypes.UpdateFunctions;
-
-  constructor(public payload: { functions: Update<FunctionObject>[] }) {}
-}
-
-export class DeleteFunction implements Action {
-  readonly type = FunctionActionTypes.DeleteFunction;
-
-  constructor(public payload: { id: string }) {}
-}
-
-export class DeleteFunctions implements Action {
-  readonly type = FunctionActionTypes.DeleteFunctions;
-
-  constructor(public payload: { ids: string[] }) {}
-}
-
-export class ClearFunctions implements Action {
-  readonly type = FunctionActionTypes.ClearFunctions;
-}
-
-export class SaveFunction implements Action {
-  readonly type = FunctionActionTypes.SaveFunction;
-  constructor(public functionObject: FunctionObject, public currentUser: any) {}
-}
-
-export class SaveFunctionSuccess implements Action {
-  readonly type = FunctionActionTypes.SaveFunctionSuccess;
-  constructor(public functionObject: FunctionObject) {}
-}
-
-export class SaveFunctionFails implements Action {
-  readonly type = FunctionActionTypes.SaveFunctionFails;
-  constructor(public functionObject: FunctionObject, public error: any) {}
-}
-
-export class SetActiveFunction implements Action {
-  readonly type = FunctionActionTypes.SetActiveFunction;
-  constructor(public functionObject: FunctionObject) {}
-}
-
-export class UpdateActiveFunction implements Action {
-  readonly type = FunctionActionTypes.UpdateActiveFunction;
-}
-
-export type FunctionActions =
-  | LoadFunctionsInitiated
-  | LoadFunctions
-  | LoadFunctionsFail
-  | AddFunction
-  | UpsertFunction
-  | AddFunctions
-  | UpsertFunctions
-  | UpdateFunction
-  | UpdateFunctions
-  | DeleteFunction
-  | DeleteFunctions
-  | ClearFunctions
-  | SetActiveFunction
-  | UpdateActiveFunction
-  | SaveFunction
-  | SaveFunctionSuccess
-  | SaveFunctionFails;
+export const updateActiveFunction = createAction(
+  '[Function] Update active Function'
+);

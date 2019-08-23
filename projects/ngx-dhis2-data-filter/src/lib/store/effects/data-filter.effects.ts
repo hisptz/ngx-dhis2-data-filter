@@ -3,23 +3,23 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { LoadFunctions } from '../actions/function.actions';
-import { LoadIndicatorGroups } from '../actions/indicator-group.actions';
-import { LoadIndicators } from '../actions/indicator.actions';
+import { LoadDataElementGroups } from '../actions/data-element-group.actions';
+import { LoadDataElements } from '../actions/data-element.actions';
 import {
   DataFilterActionTypes,
   LoadDataFilters
 } from '../actions/data-filter.actions';
-import { LoadDataElementGroups } from '../actions/data-element-group.actions';
-import { LoadDataElements } from '../actions/data-element.actions';
+import { loadFunctions } from '../actions/function.actions';
+import { LoadIndicatorGroups } from '../actions/indicator-group.actions';
+import { LoadIndicators } from '../actions/indicator.actions';
 
 @Injectable()
 export class DataFilterEffects {
   @Effect()
   loadDataFilters$: Observable<any> = this.actions$.pipe(
     ofType(DataFilterActionTypes.LoadDataFilters),
-    switchMap((action: LoadDataFilters) => [
-      new LoadFunctions(action.currentUser),
+    switchMap(({ currentUser }: LoadDataFilters) => [
+      loadFunctions({ currentUser }),
       new LoadIndicatorGroups(),
       new LoadIndicators(),
       new LoadDataElementGroups(),

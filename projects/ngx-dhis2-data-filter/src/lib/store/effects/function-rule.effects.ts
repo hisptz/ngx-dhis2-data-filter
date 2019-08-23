@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import * as fromFunctionRuleActions from '../actions/function-rule.actions';
-import * as fromFunctionActions from '../actions/function.actions';
+import { addFunctions } from '../actions/function.actions';
 
 @Injectable()
 export class FunctionRuleEffects {
   @Effect()
   addFunctions$: Observable<any> = this.actions$.pipe(
-    ofType(fromFunctionActions.FunctionActionTypes.AddFunctions),
+    ofType(addFunctions),
     map(
-      (action: fromFunctionActions.AddFunctions) =>
-        new fromFunctionRuleActions.AddFunctionRules(action.functionRules)
+      ({ functionRules }) =>
+        new fromFunctionRuleActions.AddFunctionRules(functionRules)
     )
   );
   constructor(private actions$: Actions) {}
