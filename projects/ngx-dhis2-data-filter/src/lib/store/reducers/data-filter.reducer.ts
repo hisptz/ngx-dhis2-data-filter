@@ -21,14 +21,11 @@ import {
 import { indicatorReducer, IndicatorState } from './indicator.reducer';
 
 import {
-  reducer as dataElementGroupReducer,
-  State as DataElementGroupState
+  dataElementGroupReducer,
+  DataElementGroupState
 } from './data-element-group.reducer';
 
-import {
-  reducer as dataElementReducer,
-  State as DataElementState
-} from './data-element.reducer';
+import { dataElementReducer, DataElementState } from './data-element.reducer';
 
 export interface DataFilterState {
   activeDataFilterSelections: string[];

@@ -12,7 +12,7 @@ export class AppComponent {
   action: string;
   dataFilterConfig: DataFilterConfig = {
     singleSelection: true,
-    enabledSelections: ['in', 'fn'],
+    enabledSelections: ['in', 'fn', 'de'],
     showGroupingButton: false
   };
   selectedDataItems: any[] = [];

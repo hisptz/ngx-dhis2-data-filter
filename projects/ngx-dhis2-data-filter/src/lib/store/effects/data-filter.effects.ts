@@ -3,8 +3,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { LoadDataElementGroups } from '../actions/data-element-group.actions';
-import { LoadDataElements } from '../actions/data-element.actions';
+import { loadDataElementGroups } from '../actions/data-element-group.actions';
+import { loadDataElements } from '../actions/data-element.actions';
 import {
   DataFilterActionTypes,
   LoadDataFilters
@@ -22,8 +22,8 @@ export class DataFilterEffects {
       loadFunctions({ currentUser }),
       loadIndicatorGroups(),
       loadIndicators(),
-      new LoadDataElementGroups(),
-      new LoadDataElements()
+      loadDataElementGroups(),
+      loadDataElements()
     ])
   );
   constructor(private actions$: Actions) {}
