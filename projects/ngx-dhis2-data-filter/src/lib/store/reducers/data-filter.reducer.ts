@@ -14,8 +14,8 @@ import {
 } from './function-rule.reducer';
 
 import {
-  reducer as indicatorGroupReducer,
-  State as IndicatorGroupState
+  indicatorGroupReducer,
+  IndicatorGroupState
 } from './indicator-group.reducer';
 
 import { indicatorReducer, IndicatorState } from './indicator.reducer';

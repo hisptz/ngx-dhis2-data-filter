@@ -10,7 +10,7 @@ import {
   LoadDataFilters
 } from '../actions/data-filter.actions';
 import { loadFunctions } from '../actions/function.actions';
-import { LoadIndicatorGroups } from '../actions/indicator-group.actions';
+import { loadIndicatorGroups } from '../actions/indicator-group.actions';
 import { loadIndicators } from '../actions/indicator.actions';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class DataFilterEffects {
     ofType(DataFilterActionTypes.LoadDataFilters),
     switchMap(({ currentUser }: LoadDataFilters) => [
       loadFunctions({ currentUser }),
-      new LoadIndicatorGroups(),
+      loadIndicatorGroups(),
       loadIndicators(),
       new LoadDataElementGroups(),
       new LoadDataElements()
