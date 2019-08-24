@@ -4,26 +4,26 @@ import * as _ from 'lodash';
 import { DataFilterSelection } from '../../models/data-filter-selection.model';
 import {
   DataFilterState,
-  getDataFilterState,
-  State
+  getDataFilterState
 } from '../reducers/data-filter.reducer';
 import { getFunctionLoadingStatus } from './function.selectors';
 import { getIndicatorGroupsLoadingStatus } from './indicator-group.selectors';
 import { getIndicatorsLoadingStatus } from './indicator.selectors';
+import { DataFilterConfigState } from '../reducers/data-filter-config.reducer';
 
 const getDataFilterConfig = createSelector(
   getDataFilterState,
-  (state: State) => state.filterConfig
+  (state: DataFilterState) => state.filterConfig
 );
 
 const getActiveDataFilterSelections = createSelector(
   getDataFilterConfig,
-  (state: DataFilterState) => state.activeDataFilterSelections
+  (state: DataFilterConfigState) => state.activeDataFilterSelections
 );
 
 const getCurrentDataFilterGroupId = createSelector(
   getDataFilterConfig,
-  (state: DataFilterState) => state.currentDataFilterGroupId
+  (state: DataFilterConfigState) => state.currentDataFilterGroupId
 );
 
 const getDataFilterGroupEntities = (
@@ -31,7 +31,7 @@ const getDataFilterGroupEntities = (
 ) =>
   createSelector(
     getDataFilterState,
-    (dataFilterState: State) => {
+    (dataFilterState: DataFilterState) => {
       const dataFilterGroupEntities = {};
       dataFilterSelections.forEach(
         (dataFilterSelection: DataFilterSelection) => {

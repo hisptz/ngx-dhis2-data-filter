@@ -25,15 +25,15 @@ import { ARROW_LEFT_ICON, ARROW_RIGHT_ICON, LIST_ICON } from '../../icons';
 import { DataFilterConfig } from '../../models/data-filter-config.model';
 import { DataFilterSelection } from '../../models/data-filter-selection.model';
 import { DataGroup } from '../../models/data-group.model';
-import { State } from '../../store/reducers/data-filter.reducer';
+import { DataFilterState } from '../../store/reducers/data-filter.reducer';
 import {
   getDataFilterGroups,
   getDataFilterItems
 } from '../../store/selectors/data-filter.selectors';
 import {
-  LoadDataFilters,
-  SetCurrentDataFilterGroup,
-  UpdateActiveDataFilterSelections
+  setCurrentDataFilterGroup,
+  updateActiveDataFilterSelections,
+  loadDataFilters
 } from '../../store/actions/data-filter.actions';
 import { filterByName } from '../../helpers/filter-by-name.helper';
 import { defaultDataFilterConfig } from '../../constants/data-filter-config.constant';
@@ -93,7 +93,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   dataFilterItems$: Observable<any[]>;
   dataFilterLoading$: Observable<boolean>;
 
-  constructor(private dataFilterStore: Store<State>) {
+  constructor(private dataFilterStore: Store<DataFilterState>) {
     // Set default data group preferences
     this.dataGroupPreferences = {
       maximumNumberOfGroups: 0,
@@ -124,7 +124,9 @@ export class DataFilterComponent implements OnInit, OnDestroy {
       this.selectedItems = [];
     }
     // Load data filter items
-    this.dataFilterStore.dispatch(new LoadDataFilters(this.currentUser));
+    this.dataFilterStore.dispatch(
+      loadDataFilters({ currentUser: this.currentUser })
+    );
     // set data filter selections
     this.dataFilterSelections = getDataFilterSelectionsBasedOnConfig(
       this.dataFilterConfig
@@ -156,7 +158,9 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   onSetDataFilterGroup(dataFilterGroup: any, e) {
     e.stopPropagation();
     this.dataFilterStore.dispatch(
-      new SetCurrentDataFilterGroup(dataFilterGroup.id)
+      setCurrentDataFilterGroup({
+        currentDataFilterGroupId: dataFilterGroup.id
+      })
     );
     this.showGroups = false;
   }
@@ -340,7 +344,9 @@ export class DataFilterComponent implements OnInit, OnDestroy {
     );
 
     this.dataFilterStore.dispatch(
-      new UpdateActiveDataFilterSelections(this.dataFilterSelections)
+      updateActiveDataFilterSelections({
+        dataFilterSelections: this.dataFilterSelections
+      })
     );
 
     this.currentPageForAvailableDataItems = 1;

@@ -1,12 +1,18 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
 
 import { DataElement } from '../../models/data-element.model';
 import {
-  DataElementActions,
-  DataElementActionTypes
+  addDataElement,
+  addDataElements,
+  deleteDataElement,
+  loadDataElements,
+  loadDataElementsInitiated,
+  updateDataElement,
+  loadDataElementsFail
 } from '../actions/data-element.actions';
 
-export interface State extends EntityState<DataElement> {
+export interface DataElementState extends EntityState<DataElement> {
   // additional entities state properties
   loading: boolean;
   loaded: boolean;
@@ -19,7 +25,7 @@ export const adapter: EntityAdapter<DataElement> = createEntityAdapter<
   DataElement
 >();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: DataElementState = adapter.getInitialState({
   // additional entity state properties
   loading: false,
   loaded: false,
@@ -28,66 +34,34 @@ export const initialState: State = adapter.getInitialState({
   error: null
 });
 
-export function reducer(
-  state = initialState,
-  action: DataElementActions
-): State {
-  switch (action.type) {
-    case DataElementActionTypes.LoadDataElementsInitiated: {
-      return { ...state, loadInitiated: true };
-    }
-    case DataElementActionTypes.AddDataElement: {
-      return adapter.addOne(action.payload.dataElement, state);
-    }
+const reducer = createReducer(
+  initialState,
+  on(loadDataElementsInitiated, state => ({ ...state, loadInitiated: true })),
+  on(addDataElement, (state, { dataElement }) =>
+    adapter.addOne(dataElement, state)
+  ),
+  on(addDataElements, (state, { dataElements }) =>
+    adapter.addMany(dataElements, state)
+  ),
+  on(updateDataElement, (state, { id, changes }) =>
+    adapter.updateOne({ id, changes }, state)
+  ),
+  on(deleteDataElement, (state, { id }) => adapter.removeOne(id, state)),
+  on(loadDataElements, state => ({
+    ...state,
+    loading: state.loaded ? false : true,
+    loaded: state.loaded,
+    hasError: false,
+    error: null
+  })),
+  on(loadDataElementsFail, (state, { error }) => ({
+    ...state,
+    loaded: true,
+    error,
+    hasError: true
+  }))
+);
 
-    case DataElementActionTypes.UpsertDataElement: {
-      return adapter.upsertOne(action.payload.dataElement, state);
-    }
-
-    case DataElementActionTypes.AddDataElements: {
-      return adapter.addMany(action.dataElements, {
-        ...state,
-        loaded: true,
-        loading: false
-      });
-    }
-
-    case DataElementActionTypes.UpsertDataElements: {
-      return adapter.upsertMany(action.payload.dataElements, state);
-    }
-
-    case DataElementActionTypes.UpdateDataElement: {
-      return adapter.updateOne(action.payload.dataElement, state);
-    }
-
-    case DataElementActionTypes.UpdateDataElements: {
-      return adapter.updateMany(action.payload.dataElements, state);
-    }
-
-    case DataElementActionTypes.DeleteDataElement: {
-      return adapter.removeOne(action.payload.id, state);
-    }
-
-    case DataElementActionTypes.DeleteDataElements: {
-      return adapter.removeMany(action.payload.ids, state);
-    }
-
-    case DataElementActionTypes.LoadDataElements: {
-      return {
-        ...state,
-        loading: state.loaded ? false : true,
-        loaded: state.loaded,
-        hasError: false,
-        error: null
-      };
-    }
-
-    case DataElementActionTypes.ClearDataElements: {
-      return adapter.removeAll(state);
-    }
-
-    default: {
-      return state;
-    }
-  }
+export function dataElementReducer(state, action): DataElementState {
+  return reducer(state, action);
 }

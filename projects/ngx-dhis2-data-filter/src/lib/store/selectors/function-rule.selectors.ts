@@ -2,9 +2,9 @@ import { createSelector } from '@ngrx/store';
 
 import {
   getDataFilterState,
-  State as DataFilterState
+  DataFilterState
 } from '../reducers/data-filter.reducer';
-import { adapter, State } from '../reducers/function-rule.reducer';
+import { adapter, FunctionRuleState } from '../reducers/function-rule.reducer';
 
 export const getFunctionRuleState = createSelector(
   getDataFilterState,
@@ -18,7 +18,8 @@ export const {
 
 export const getActiveFunctionRuleId = createSelector(
   getFunctionRuleState,
-  (functionRuleState: State) => functionRuleState.activeFunctionRuleId
+  (functionRuleState: FunctionRuleState) =>
+    functionRuleState.activeFunctionRuleId
 );
 
 export const getActiveFunctionRule = createSelector(

@@ -5,9 +5,12 @@ import { DataElementGroup } from '../../models/data-element-group.model';
 import { DataElement } from '../../models/data-element.model';
 import {
   getDataFilterState,
-  State as DataFilterState
+  DataFilterState
 } from '../reducers/data-filter.reducer';
-import { adapter, State } from '../reducers/data-element-group.reducer';
+import {
+  adapter,
+  DataElementGroupState
+} from '../reducers/data-element-group.reducer';
 import { getDataElementEntities } from './data-element.selectors';
 
 const getDataElementGroupState = createSelector(
@@ -21,12 +24,12 @@ export const { selectAll: getAllDataElementGroups } = adapter.getSelectors(
 
 export const getDataElementGroupsInitiatedStatus = createSelector(
   getDataElementGroupState,
-  (state: State) => state.loadInitiated
+  (state: DataElementGroupState) => state.loadInitiated
 );
 
 export const getDataElementGroupsLoadingStatus = createSelector(
   getDataElementGroupState,
-  (state: State) => state.loading
+  (state: DataElementGroupState) => state.loading
 );
 
 export const getDataElementGroups = createSelector(
