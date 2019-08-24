@@ -11,7 +11,7 @@ import {
 } from '../actions/data-filter.actions';
 import { loadFunctions } from '../actions/function.actions';
 import { LoadIndicatorGroups } from '../actions/indicator-group.actions';
-import { LoadIndicators } from '../actions/indicator.actions';
+import { loadIndicators } from '../actions/indicator.actions';
 
 @Injectable()
 export class DataFilterEffects {
@@ -21,7 +21,7 @@ export class DataFilterEffects {
     switchMap(({ currentUser }: LoadDataFilters) => [
       loadFunctions({ currentUser }),
       new LoadIndicatorGroups(),
-      new LoadIndicators(),
+      loadIndicators(),
       new LoadDataElementGroups(),
       new LoadDataElements()
     ])

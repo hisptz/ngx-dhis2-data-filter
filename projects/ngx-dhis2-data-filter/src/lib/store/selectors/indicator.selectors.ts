@@ -3,7 +3,7 @@ import {
   getDataFilterState,
   State as DataFilterState
 } from '../reducers/data-filter.reducer';
-import { adapter, State } from '../reducers/indicator.reducer';
+import { adapter, IndicatorState } from '../reducers/indicator.reducer';
 
 export const getIndicatorState = createSelector(
   getDataFilterState,
@@ -17,10 +17,10 @@ export const {
 
 export const getIndicatorsInitiatedStatus = createSelector(
   getIndicatorState,
-  (state: State) => state.loadInitiated
+  (state: IndicatorState) => state.loadInitiated
 );
 
 export const getIndicatorsLoadingStatus = createSelector(
   getIndicatorState,
-  (state: State) => state.loading
+  (state: IndicatorState) => state.loading
 );

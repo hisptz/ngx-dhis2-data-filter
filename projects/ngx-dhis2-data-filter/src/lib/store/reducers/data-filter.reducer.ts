@@ -18,10 +18,7 @@ import {
   State as IndicatorGroupState
 } from './indicator-group.reducer';
 
-import {
-  reducer as indicatorReducer,
-  State as IndicatorState
-} from './indicator.reducer';
+import { indicatorReducer, IndicatorState } from './indicator.reducer';
 
 import {
   reducer as dataElementGroupReducer,
