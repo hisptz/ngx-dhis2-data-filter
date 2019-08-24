@@ -5,7 +5,7 @@ import { IndicatorGroup } from '../../models/indicator-group.model';
 import { Indicator } from '../../models/indicator.model';
 import {
   getDataFilterState,
-  State as DataFilterState
+  DataFilterState
 } from '../reducers/data-filter.reducer';
 import {
   adapter,

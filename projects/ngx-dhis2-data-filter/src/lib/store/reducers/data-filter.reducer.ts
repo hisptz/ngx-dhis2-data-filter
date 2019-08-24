@@ -1,71 +1,27 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import * as _ from 'lodash';
-
-import {
-  DataFilterActions,
-  DataFilterActionTypes
-} from '../actions/data-filter.actions';
-
-import { functionReducer, FunctionState } from './function.reducer';
-
-import {
-  reducer as functionRuleReducer,
-  State as FunctionRuleState
-} from './function-rule.reducer';
-
-import {
-  indicatorGroupReducer,
-  IndicatorGroupState
-} from './indicator-group.reducer';
-
-import { indicatorReducer, IndicatorState } from './indicator.reducer';
 
 import {
   dataElementGroupReducer,
   DataElementGroupState
 } from './data-element-group.reducer';
-
 import { dataElementReducer, DataElementState } from './data-element.reducer';
+import {
+  dataFilterConfigReducer,
+  DataFilterConfigState
+} from './data-filter-config.reducer';
+import {
+  functionRuleReducer,
+  FunctionRuleState
+} from './function-rule.reducer';
+import { functionReducer, FunctionState } from './function.reducer';
+import {
+  indicatorGroupReducer,
+  IndicatorGroupState
+} from './indicator-group.reducer';
+import { indicatorReducer, IndicatorState } from './indicator.reducer';
 
 export interface DataFilterState {
-  activeDataFilterSelections: string[];
-  currentDataFilterGroupId: string;
-}
-
-const initialFilterState: DataFilterState = {
-  activeDataFilterSelections: ['all'],
-  currentDataFilterGroupId: 'all'
-};
-
-export function configReducer(
-  state = initialFilterState,
-  action: DataFilterActions
-): DataFilterState {
-  switch (action.type) {
-    case DataFilterActionTypes.UpdateActiveDataFilterSelections: {
-      return {
-        ...state,
-        activeDataFilterSelections: _.map(
-          _.filter(
-            action.dataFilterSelections,
-            (dataSelection: any) => dataSelection.selected
-          ),
-          (dataSelection: any) => dataSelection.prefix
-        )
-      };
-    }
-
-    case DataFilterActionTypes.SetCurrentDataFilterGroup: {
-      return { ...state, currentDataFilterGroupId: action.dataFilterGroupId };
-    }
-
-    default:
-      return state;
-  }
-}
-
-export interface State {
-  filterConfig: DataFilterState;
+  filterConfig: DataFilterConfigState;
   function: FunctionState;
   functionRule: FunctionRuleState;
   indicatorGroup: IndicatorGroupState;
@@ -74,8 +30,8 @@ export interface State {
   dataElement: DataElementState;
 }
 
-export const dataFilterReducer: ActionReducerMap<State> = {
-  filterConfig: configReducer,
+export const dataFilterReducer: ActionReducerMap<DataFilterState> = {
+  filterConfig: dataFilterConfigReducer,
   function: functionReducer,
   functionRule: functionRuleReducer,
   indicatorGroup: indicatorGroupReducer,
@@ -84,4 +40,6 @@ export const dataFilterReducer: ActionReducerMap<State> = {
   dataElement: dataElementReducer
 };
 
-export const getDataFilterState = createFeatureSelector<State>('dataFilter');
+export const getDataFilterState = createFeatureSelector<DataFilterState>(
+  'dataFilter'
+);

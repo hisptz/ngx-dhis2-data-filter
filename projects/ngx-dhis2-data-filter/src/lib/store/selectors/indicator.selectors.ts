@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import {
   getDataFilterState,
-  State as DataFilterState
+  DataFilterState
 } from '../reducers/data-filter.reducer';
 import { adapter, IndicatorState } from '../reducers/indicator.reducer';
 

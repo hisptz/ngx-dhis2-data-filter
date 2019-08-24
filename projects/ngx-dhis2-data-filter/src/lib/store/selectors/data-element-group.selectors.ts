@@ -5,7 +5,7 @@ import { DataElementGroup } from '../../models/data-element-group.model';
 import { DataElement } from '../../models/data-element.model';
 import {
   getDataFilterState,
-  State as DataFilterState
+  DataFilterState
 } from '../reducers/data-filter.reducer';
 import {
   adapter,

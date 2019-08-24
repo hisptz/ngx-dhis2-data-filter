@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { FunctionObject } from '../../models/function.model';
 import {
   getDataFilterState,
-  State as DataFilterState
+  DataFilterState
 } from '../reducers/data-filter.reducer';
 import { adapter, FunctionState } from '../reducers/function.reducer';
 import {
