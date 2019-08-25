@@ -1,5 +1,5 @@
 import { DataGroup } from '../models/data-group.model';
-import * as _ from 'lodash';
+import { map, flatten, find } from 'lodash';
 
 export function getDataGroupBasedOnDataItem(
   dataGroups: DataGroup[],
@@ -8,9 +8,9 @@ export function getDataGroupBasedOnDataItem(
   if (!dataItem) {
     return null;
   }
-  const dataItems = _.flatten(
-    _.map(dataGroups || [], (dataGroup: DataGroup) => {
-      return _.map(dataGroup.members || [], member => {
+  const dataItems = flatten(
+    map(dataGroups || [], (dataGroup: DataGroup) => {
+      return map(dataGroup.members || [], member => {
         return {
           ...member,
           groupId: dataGroup.id
@@ -19,9 +19,9 @@ export function getDataGroupBasedOnDataItem(
     })
   );
 
-  const dataItemWithGroup = _.find(dataItems, ['id', dataItem.id]);
+  const dataItemWithGroup = find(dataItems, ['id', dataItem.id]);
 
-  return _.find(dataGroups, [
+  return find(dataGroups, [
     'id',
     dataItemWithGroup ? dataItemWithGroup.groupId : undefined
   ]);

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { omit } from 'lodash';
 import { getInitialFunctionStructure } from './get-initial-function-structure.helper';
 import { FunctionObject } from '../models/function.model';
 
@@ -16,7 +16,7 @@ export function prepareFunctionForSaving(
     contextPath
   );
 
-  return _.omit(
+  return omit(
     initialFunctionObjectForSaving.isNew
       ? {
           ...initialFunctionObjectForSaving,

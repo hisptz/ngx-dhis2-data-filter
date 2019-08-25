@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import * as _ from 'lodash';
+import { map, filter } from 'lodash';
 
 import { IndicatorGroup } from '../../models/indicator-group.model';
 import { Indicator } from '../../models/indicator.model';
@@ -39,12 +39,12 @@ export const getIndicatorGroups = createSelector(
     indicatorGroups: IndicatorGroup[],
     indicatorEntities: { [id: string]: Indicator }
   ) => {
-    return _.map(indicatorGroups, (indicatorGroup: IndicatorGroup) => {
+    return map(indicatorGroups, (indicatorGroup: IndicatorGroup) => {
       return {
         id: indicatorGroup.id,
         name: indicatorGroup.name,
-        items: _.filter(
-          _.map(
+        items: filter(
+          map(
             indicatorGroup.indicators || [],
             (indicatorId: string) => indicatorEntities[indicatorId]
           ),

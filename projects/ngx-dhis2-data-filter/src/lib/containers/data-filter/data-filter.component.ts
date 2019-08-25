@@ -7,7 +7,7 @@ import {
   Output
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as _ from 'lodash';
+import { uniqBy, isPlainObject, find, slice, omit, filter } from 'lodash';
 import {
   getCurrentDataFilterGroup,
   getDataFilterLoadingStatus
@@ -120,7 +120,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
     };
 
     // Initialize selected items
-    if (!this.selectedItems || _.isPlainObject(this.selectedItems)) {
+    if (!this.selectedItems || isPlainObject(this.selectedItems)) {
       this.selectedItems = [];
     }
     // Load data filter items
@@ -172,12 +172,12 @@ export class DataFilterComponent implements OnInit, OnDestroy {
       this.onDeselectAllItems();
     }
 
-    if (!_.find(this.selectedItems, ['id', item.id])) {
+    if (!find(this.selectedItems, ['id', item.id])) {
       this.selectedItems =
         this.dataGroupPreferences &&
         this.dataGroupPreferences.maximumItemPerGroup &&
         this.dataGroupPreferences.maximumNumberOfGroups
-          ? _.slice(
+          ? slice(
               [...this.selectedItems, item],
               0,
               this.dataGroupPreferences.maximumItemPerGroup *
@@ -197,14 +197,14 @@ export class DataFilterComponent implements OnInit, OnDestroy {
 
   onUpdateDataItem(dataItem: any) {
     const dataItemIndex = this.selectedItems.indexOf(
-      _.find(this.selectedItems, ['id', dataItem ? dataItem.id : ''])
+      find(this.selectedItems, ['id', dataItem ? dataItem.id : ''])
     );
 
     if (dataItemIndex !== -1) {
       this.selectedItems = [
-        ..._.slice(this.selectedItems, 0, dataItemIndex),
+        ...slice(this.selectedItems, 0, dataItemIndex),
         dataItem,
-        ..._.slice(this.selectedItems, dataItemIndex + 1)
+        ...slice(this.selectedItems, dataItemIndex + 1)
       ];
     }
   }
@@ -215,7 +215,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
       e.stopPropagation();
     }
 
-    const removedItem = _.find(this.selectedItems, [
+    const removedItem = find(this.selectedItems, [
       'id',
       dataItemDetails && dataItemDetails.dataItem
         ? dataItemDetails.dataItem.id
@@ -256,7 +256,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
         take(1)
       )
       .subscribe((dataFilterItems: any[]) => {
-        const newSelectedItems = _.uniqBy(
+        const newSelectedItems = uniqBy(
           [...this.selectedItems, ...dataFilterItems],
           'id'
         );
@@ -264,7 +264,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
           this.dataGroupPreferences &&
           this.dataGroupPreferences.maximumItemPerGroup &&
           this.dataGroupPreferences.maximumNumberOfGroups
-            ? _.slice(
+            ? slice(
                 newSelectedItems,
                 0,
                 this.dataGroupPreferences.maximumItemPerGroup *
@@ -298,9 +298,9 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   emit() {
     return {
       items: this.selectedItems,
-      groups: _.filter(
-        _.map(this.selectedGroups, (dataGroup: any) => {
-          return _.omit(dataGroup, ['current']);
+      groups: filter(
+        this.selectedGroups.map((dataGroup: any) => {
+          return omit(dataGroup, ['current']);
         }),
         (dataGroup: DataGroup) => dataGroup.name !== ''
       ),
@@ -322,8 +322,7 @@ export class DataFilterComponent implements OnInit, OnDestroy {
   onToggleDataFilterSelection(toggledDataFilterSelection, event) {
     event.stopPropagation();
     const multipleSelection = event.ctrlKey ? true : false;
-    this.dataFilterSelections = _.map(
-      this.dataFilterSelections,
+    this.dataFilterSelections = this.dataFilterSelections.map(
       (dataFilterSelection: any) => {
         return {
           ...dataFilterSelection,

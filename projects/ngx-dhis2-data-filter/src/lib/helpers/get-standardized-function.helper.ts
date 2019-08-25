@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { map, filter } from 'lodash';
 
 export function getStandardizedFunction(
   functionItem: any,
@@ -7,8 +7,8 @@ export function getStandardizedFunction(
   return {
     ...functionItem,
     selected: isSelected,
-    rules: _.filter(
-      _.map(functionItem.rules || [], (rule: any) =>
+    rules: filter(
+      map(functionItem.rules || [], (rule: any) =>
         rule ? rule.id : undefined
       ),
       rule => rule
