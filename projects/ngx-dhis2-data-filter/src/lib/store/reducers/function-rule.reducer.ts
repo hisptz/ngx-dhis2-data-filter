@@ -1,13 +1,18 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import * as _ from 'lodash';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
+import { find } from 'lodash';
+
 import { FunctionRule } from '../../models/function-rule.model';
 import {
-  FunctionRuleActions,
-  FunctionRuleActionTypes
+  addFunctionRule,
+  addFunctionRules,
+  deleteFunctionRule,
+  setActiveFunctionRule,
+  updateActiveFunctionRule,
+  updateFunctionRule
 } from '../actions/function-rule.actions';
-import { createSelector, createFeatureSelector } from '@ngrx/store';
 
-export interface State extends EntityState<FunctionRule> {
+export interface FunctionRuleState extends EntityState<FunctionRule> {
   // additional entities state properties
   activeFunctionRuleId: string;
 }
@@ -16,88 +21,45 @@ export const adapter: EntityAdapter<FunctionRule> = createEntityAdapter<
   FunctionRule
 >();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: FunctionRuleState = adapter.getInitialState({
   // additional entity state properties
   activeFunctionRuleId: ''
 });
 
-export function reducer(
-  state = initialState,
-  action: FunctionRuleActions
-): State {
-  switch (action.type) {
-    case FunctionRuleActionTypes.AddFunctionRule: {
-      return adapter.addOne(action.payload.functionRule, state);
-    }
+const reducer = createReducer(
+  initialState,
+  on(addFunctionRule, (state, { functionRule }) =>
+    adapter.addOne(functionRule, state)
+  ),
+  on(addFunctionRules, (state, { functionRules }) => {
+    const selectedFunctionRule = find(functionRules, ['selected', true]);
+    return adapter.addMany(functionRules, {
+      ...state,
+      activeFunctionRuleId: selectedFunctionRule
+        ? selectedFunctionRule.id
+        : functionRules && functionRules[0]
+        ? functionRules[0].id
+        : ''
+    });
+  }),
+  on(updateFunctionRule, (state, { id, changes }) =>
+    adapter.updateOne({ id, changes }, state)
+  ),
+  on(deleteFunctionRule, (state, { id }) => adapter.removeOne(id, state)),
+  on(setActiveFunctionRule, (state, { functionRuleId }) =>
+    functionRuleId ? { ...state, activeFunctionRuleId: functionRuleId } : state
+  ),
+  on(updateActiveFunctionRule, state => {
+    const activeFunctionRuleId = state.activeFunctionRuleId;
+    return activeFunctionRuleId !== ''
+      ? adapter.updateOne(
+          { id: activeFunctionRuleId, changes: { simulating: false } },
+          state
+        )
+      : state;
+  })
+);
 
-    case FunctionRuleActionTypes.UpsertFunctionRule: {
-      return adapter.upsertOne(action.functionRule, state);
-    }
-
-    case FunctionRuleActionTypes.AddFunctionRules: {
-      const selectedFunctionRule = _.find(action.functionRules, [
-        'selected',
-        true
-      ]);
-      return adapter.addMany(action.functionRules, {
-        ...state,
-        activeFunctionRuleId: selectedFunctionRule
-          ? selectedFunctionRule.id
-          : action.functionRules && action.functionRules[0]
-          ? action.functionRules[0].id
-          : ''
-      });
-    }
-
-    case FunctionRuleActionTypes.UpsertFunctionRules: {
-      return adapter.upsertMany(action.payload.functionRules, state);
-    }
-
-    case FunctionRuleActionTypes.UpdateFunctionRule: {
-      return adapter.updateOne(
-        { id: action.id, changes: action.changes },
-        state
-      );
-    }
-
-    case FunctionRuleActionTypes.UpdateFunctionRules: {
-      return adapter.updateMany(action.payload.functionRules, state);
-    }
-
-    case FunctionRuleActionTypes.DeleteFunctionRule: {
-      return adapter.removeOne(action.payload.id, state);
-    }
-
-    case FunctionRuleActionTypes.DeleteFunctionRules: {
-      return adapter.removeMany(action.payload.ids, state);
-    }
-
-    case FunctionRuleActionTypes.LoadFunctionRules: {
-      return adapter.addAll(action.payload.functionRules, state);
-    }
-
-    case FunctionRuleActionTypes.ClearFunctionRules: {
-      return adapter.removeAll(state);
-    }
-
-    case FunctionRuleActionTypes.SetActiveFunctionRule: {
-      return action.functionRuleId
-        ? { ...state, activeFunctionRuleId: action.functionRuleId }
-        : state;
-    }
-
-    case FunctionRuleActionTypes.UpdateActiveFunctionRule: {
-      const activeFunctionRuleId = state.activeFunctionRuleId;
-      return activeFunctionRuleId !== ''
-        ? adapter.updateOne(
-            { id: activeFunctionRuleId, changes: { simulating: false } },
-            state
-          )
-        : state;
-    }
-
-    default: {
-      return state;
-    }
-  }
+export function functionRuleReducer(state, action): FunctionRuleState {
+  return reducer(state, action);
 }

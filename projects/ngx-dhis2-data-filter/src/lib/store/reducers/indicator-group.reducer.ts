@@ -1,12 +1,18 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
+
 import { IndicatorGroup } from '../../models/indicator-group.model';
 import {
-  IndicatorGroupActions,
-  IndicatorGroupActionTypes
+  addIndicatorGroup,
+  addIndicatorGroups,
+  deleteIndicatorGroup,
+  loadIndicatorGroups,
+  loadIndicatorGroupsInitiated,
+  updateIndicatorGroup,
+  loadIndicatorGroupsFail
 } from '../actions/indicator-group.actions';
-import { createFeatureSelector } from '@ngrx/store';
 
-export interface State extends EntityState<IndicatorGroup> {
+export interface IndicatorGroupState extends EntityState<IndicatorGroup> {
   // additional entities state properties
   loading: boolean;
   loaded: boolean;
@@ -19,7 +25,7 @@ export const adapter: EntityAdapter<IndicatorGroup> = createEntityAdapter<
   IndicatorGroup
 >();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: IndicatorGroupState = adapter.getInitialState({
   // additional entity state properties
   loading: false,
   loaded: false,
@@ -28,66 +34,37 @@ export const initialState: State = adapter.getInitialState({
   error: null
 });
 
-export function reducer(
-  state = initialState,
-  action: IndicatorGroupActions
-): State {
-  switch (action.type) {
-    case IndicatorGroupActionTypes.LoadIndicatorGroupsInitiated: {
-      return { ...state, loadInitiated: true };
-    }
-    case IndicatorGroupActionTypes.AddIndicatorGroup: {
-      return adapter.addOne(action.payload.indicatorGroup, state);
-    }
+const reducer = createReducer(
+  initialState,
+  on(loadIndicatorGroupsInitiated, state => ({
+    ...state,
+    loadInitiated: true
+  })),
+  on(addIndicatorGroup, (state, { indicatorGroup }) =>
+    adapter.addOne(indicatorGroup, state)
+  ),
+  on(addIndicatorGroups, (state, { indicatorGroups }) =>
+    adapter.addMany(indicatorGroups, state)
+  ),
+  on(updateIndicatorGroup, (state, { id, changes }) =>
+    adapter.updateOne({ id, changes }, state)
+  ),
+  on(deleteIndicatorGroup, (state, { id }) => adapter.removeOne(id, state)),
+  on(loadIndicatorGroups, state => ({
+    ...state,
+    loading: state.loaded ? false : true,
+    loaded: state.loaded,
+    hasError: false,
+    error: null
+  })),
+  on(loadIndicatorGroupsFail, (state, { error }) => ({
+    ...state,
+    loaded: true,
+    error,
+    hasError: true
+  }))
+);
 
-    case IndicatorGroupActionTypes.UpsertIndicatorGroup: {
-      return adapter.upsertOne(action.payload.indicatorGroup, state);
-    }
-
-    case IndicatorGroupActionTypes.AddIndicatorGroups: {
-      return adapter.addMany(action.indicatorGroups, {
-        ...state,
-        loading: false,
-        loaded: true
-      });
-    }
-
-    case IndicatorGroupActionTypes.UpsertIndicatorGroups: {
-      return adapter.upsertMany(action.payload.indicatorGroups, state);
-    }
-
-    case IndicatorGroupActionTypes.UpdateIndicatorGroup: {
-      return adapter.updateOne(action.payload.indicatorGroup, state);
-    }
-
-    case IndicatorGroupActionTypes.UpdateIndicatorGroups: {
-      return adapter.updateMany(action.payload.indicatorGroups, state);
-    }
-
-    case IndicatorGroupActionTypes.DeleteIndicatorGroup: {
-      return adapter.removeOne(action.payload.id, state);
-    }
-
-    case IndicatorGroupActionTypes.DeleteIndicatorGroups: {
-      return adapter.removeMany(action.payload.ids, state);
-    }
-
-    case IndicatorGroupActionTypes.LoadIndicatorGroups: {
-      return {
-        ...state,
-        loading: state.loaded ? false : true,
-        loaded: state.loaded,
-        hasError: false,
-        error: null
-      };
-    }
-
-    case IndicatorGroupActionTypes.ClearIndicatorGroups: {
-      return adapter.removeAll(state);
-    }
-
-    default: {
-      return state;
-    }
-  }
+export function indicatorGroupReducer(state, action): IndicatorGroupState {
+  return reducer(state, action);
 }

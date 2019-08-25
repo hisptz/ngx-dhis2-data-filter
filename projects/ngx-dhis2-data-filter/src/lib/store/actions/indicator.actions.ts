@@ -1,97 +1,35 @@
-import { Action } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
+import { createAction, props } from '@ngrx/store';
+
 import { Indicator } from '../../models/indicator.model';
+import { ErrorMessage } from '@iapps/ngx-dhis2-http-client';
 
-export enum IndicatorActionTypes {
-  LoadIndicators = '[Indicator] Load Indicators',
-  LoadIndicatorsFail = '[Indicator] Load Indicators fail',
-  LoadIndicatorsInitiated = '[Indicator] Load Indicators initiate',
-  AddIndicator = '[Indicator] Add Indicator',
-  UpsertIndicator = '[Indicator] Upsert Indicator',
-  AddIndicators = '[Indicator] Add Indicators',
-  UpsertIndicators = '[Indicator] Upsert Indicators',
-  UpdateIndicator = '[Indicator] Update Indicator',
-  UpdateIndicators = '[Indicator] Update Indicators',
-  DeleteIndicator = '[Indicator] Delete Indicator',
-  DeleteIndicators = '[Indicator] Delete Indicators',
-  ClearIndicators = '[Indicator] Clear Indicators'
-}
+export const loadIndicators = createAction('[Indicator] Load Indicators');
 
-export class LoadIndicators implements Action {
-  readonly type = IndicatorActionTypes.LoadIndicators;
-}
+export const loadIndicatorsInitiated = createAction(
+  '[Indicator] Load Indicators initiate'
+);
 
-export class LoadIndicatorsInitiated implements Action {
-  readonly type = IndicatorActionTypes.LoadIndicatorsInitiated;
-}
+export const loadIndicatorsFail = createAction(
+  '[Indicator] Load Indicators fail',
+  props<{ error: ErrorMessage }>()
+);
 
-export class LoadIndicatorsFail implements Action {
-  readonly type = IndicatorActionTypes.LoadIndicatorsFail;
-  constructor(public error: any) {}
-}
+export const addIndicator = createAction(
+  '[Indicator] Add Indicator',
+  props<{ indicator: Indicator }>()
+);
 
-export class AddIndicator implements Action {
-  readonly type = IndicatorActionTypes.AddIndicator;
+export const addIndicators = createAction(
+  '[Indicator] Add Indicators',
+  props<{ indicators: Indicator[] }>()
+);
 
-  constructor(public payload: { indicator: Indicator }) {}
-}
+export const updateIndicator = createAction(
+  '[Indicator] Update Indicator',
+  props<{ id: string; changes: Partial<Indicator> }>()
+);
 
-export class UpsertIndicator implements Action {
-  readonly type = IndicatorActionTypes.UpsertIndicator;
-
-  constructor(public payload: { indicator: Indicator }) {}
-}
-
-export class AddIndicators implements Action {
-  readonly type = IndicatorActionTypes.AddIndicators;
-
-  constructor(public indicators: Indicator[]) {}
-}
-
-export class UpsertIndicators implements Action {
-  readonly type = IndicatorActionTypes.UpsertIndicators;
-
-  constructor(public payload: { indicators: Indicator[] }) {}
-}
-
-export class UpdateIndicator implements Action {
-  readonly type = IndicatorActionTypes.UpdateIndicator;
-
-  constructor(public payload: { indicator: Update<Indicator> }) {}
-}
-
-export class UpdateIndicators implements Action {
-  readonly type = IndicatorActionTypes.UpdateIndicators;
-
-  constructor(public payload: { indicators: Update<Indicator>[] }) {}
-}
-
-export class DeleteIndicator implements Action {
-  readonly type = IndicatorActionTypes.DeleteIndicator;
-
-  constructor(public payload: { id: string }) {}
-}
-
-export class DeleteIndicators implements Action {
-  readonly type = IndicatorActionTypes.DeleteIndicators;
-
-  constructor(public payload: { ids: string[] }) {}
-}
-
-export class ClearIndicators implements Action {
-  readonly type = IndicatorActionTypes.ClearIndicators;
-}
-
-export type IndicatorActions =
-  | LoadIndicators
-  | LoadIndicatorsInitiated
-  | LoadIndicatorsFail
-  | AddIndicator
-  | UpsertIndicator
-  | AddIndicators
-  | UpsertIndicators
-  | UpdateIndicator
-  | UpdateIndicators
-  | DeleteIndicator
-  | DeleteIndicators
-  | ClearIndicators;
+export const deleteIndicator = createAction(
+  '[Indicator] Delete Indicator',
+  props<{ id: string }>()
+);

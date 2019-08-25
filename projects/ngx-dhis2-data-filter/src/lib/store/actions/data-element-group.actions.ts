@@ -1,99 +1,37 @@
-import { Action } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
+import { createAction, props } from '@ngrx/store';
+
 import { DataElementGroup } from '../../models/data-element-group.model';
+import { ErrorMessage } from '@iapps/ngx-dhis2-http-client';
 
-export enum DataElementGroupActionTypes {
-  LoadDataElementGroups = '[DataElementGroup] Load DataElementGroups',
-  LoadDataElementGroupsFail = '[DataElementGroup] Load DataElementGroups fail',
-  LoadDataElementGroupsInitiated = '[DataElementGroup] Load DataElementGroups initiated',
-  AddDataElementGroup = '[DataElementGroup] Add DataElementGroup',
-  UpsertDataElementGroup = '[DataElementGroup] Upsert DataElementGroup',
-  AddDataElementGroups = '[DataElementGroup] Add DataElementGroups',
-  UpsertDataElementGroups = '[DataElementGroup] Upsert DataElementGroups',
-  UpdateDataElementGroup = '[DataElementGroup] Update DataElementGroup',
-  UpdateDataElementGroups = '[DataElementGroup] Update DataElementGroups',
-  DeleteDataElementGroup = '[DataElementGroup] Delete DataElementGroup',
-  DeleteDataElementGroups = '[DataElementGroup] Delete DataElementGroups',
-  ClearDataElementGroups = '[DataElementGroup] Clear DataElementGroups'
-}
+export const loadDataElementGroups = createAction(
+  '[DataElementGroup] Load Data Elements'
+);
 
-export class LoadDataElementGroups implements Action {
-  readonly type = DataElementGroupActionTypes.LoadDataElementGroups;
-}
+export const loadDataElementGroupsInitiated = createAction(
+  '[DataElementGroup] Load DataElementGroups initiate'
+);
 
-export class LoadDataElementGroupsInitiated implements Action {
-  readonly type = DataElementGroupActionTypes.LoadDataElementGroupsInitiated;
-}
+export const loadDataElementGroupsFail = createAction(
+  '[DataElementGroup] Load DataElementGroups fail',
+  props<{ error: ErrorMessage }>()
+);
 
-export class LoadDataElementGroupsFail implements Action {
-  readonly type = DataElementGroupActionTypes.LoadDataElementGroupsFail;
-  constructor(public error: any) {}
-}
+export const addDataElementGroup = createAction(
+  '[DataElementGroup] Add DataElementGroup',
+  props<{ dataElementGroup: DataElementGroup }>()
+);
 
-export class AddDataElementGroup implements Action {
-  readonly type = DataElementGroupActionTypes.AddDataElementGroup;
+export const addDataElementGroups = createAction(
+  '[DataElementGroup] Add DataElementGroups',
+  props<{ dataElementGroups: DataElementGroup[] }>()
+);
 
-  constructor(public payload: { dataElementGroup: DataElementGroup }) {}
-}
+export const updateDataElementGroup = createAction(
+  '[DataElementGroup] Update DataElementGroup',
+  props<{ id: string; changes: Partial<DataElementGroup> }>()
+);
 
-export class UpsertDataElementGroup implements Action {
-  readonly type = DataElementGroupActionTypes.UpsertDataElementGroup;
-
-  constructor(public payload: { dataElementGroup: DataElementGroup }) {}
-}
-
-export class AddDataElementGroups implements Action {
-  readonly type = DataElementGroupActionTypes.AddDataElementGroups;
-
-  constructor(public dataElementGroups: DataElementGroup[]) {}
-}
-
-export class UpsertDataElementGroups implements Action {
-  readonly type = DataElementGroupActionTypes.UpsertDataElementGroups;
-
-  constructor(public payload: { dataElementGroups: DataElementGroup[] }) {}
-}
-
-export class UpdateDataElementGroup implements Action {
-  readonly type = DataElementGroupActionTypes.UpdateDataElementGroup;
-
-  constructor(public payload: { dataElementGroup: Update<DataElementGroup> }) {}
-}
-
-export class UpdateDataElementGroups implements Action {
-  readonly type = DataElementGroupActionTypes.UpdateDataElementGroups;
-
-  constructor(
-    public payload: { dataElementGroups: Update<DataElementGroup>[] }
-  ) {}
-}
-
-export class DeleteDataElementGroup implements Action {
-  readonly type = DataElementGroupActionTypes.DeleteDataElementGroup;
-
-  constructor(public payload: { id: string }) {}
-}
-
-export class DeleteDataElementGroups implements Action {
-  readonly type = DataElementGroupActionTypes.DeleteDataElementGroups;
-
-  constructor(public payload: { ids: string[] }) {}
-}
-
-export class ClearDataElementGroups implements Action {
-  readonly type = DataElementGroupActionTypes.ClearDataElementGroups;
-}
-
-export type DataElementGroupActions =
-  | LoadDataElementGroups
-  | LoadDataElementGroupsInitiated
-  | LoadDataElementGroupsFail
-  | AddDataElementGroup
-  | UpsertDataElementGroup
-  | AddDataElementGroups
-  | UpsertDataElementGroups
-  | UpdateDataElementGroup
-  | UpdateDataElementGroups
-  | DeleteDataElementGroup
-  | DeleteDataElementGroups
-  | ClearDataElementGroups;
+export const deleteDataElementGroup = createAction(
+  '[DataElementGroup] Delete DataElementGroup',
+  props<{ id: string }>()
+);

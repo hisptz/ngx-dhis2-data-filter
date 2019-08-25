@@ -25,7 +25,7 @@
     "@angular/platform-browser": "^9.0.0-next.2",
     "@angular/platform-browser-dynamic": "^9.0.0-next.2",
     "@angular/router": "^9.0.0-next.2",
-    "@iapps/ngx-dhis2-http-client": "^2.0.7",
+    "@iapps/ngx-dhis2-http-client": "^2.0.8-beta.2",
     "@ngrx/effects": "^8.2.0",
     "@ngrx/entity": "^8.2.0",
     "@ngrx/store": "^8.2.0",
@@ -44,9 +44,9 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.802.2",
-    "@angular-devkit/build-ng-packagr": "~0.802.2",
-    "@angular/cli": "~8.2.2",
+    "@angular-devkit/build-angular": "~0.803.0",
+    "@angular-devkit/build-ng-packagr": "~0.803.0",
+    "@angular/cli": "~8.3.0",
     "@angular/compiler-cli": "^9.0.0-next.2",
     "@angular/language-service": "^9.0.0-next.2",
     "@types/jasmine": "~3.4.0",
@@ -66,9 +66,9 @@
     "ng-packagr": "^5.5.0",
     "protractor": "^6.0.0",
     "ts-node": "~8.3.0",
-    "tsickle": "^0.36.0",
+    "tsickle": "^0.37.0",
     "tslib": "^1.10.0",
-    "tslint": "~5.18.0",
+    "tslint": "~5.19.0",
     "typescript": "~3.5.3"
   },
   "manifest.webapp": {

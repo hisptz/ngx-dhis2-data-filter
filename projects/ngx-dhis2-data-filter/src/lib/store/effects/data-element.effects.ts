@@ -1,46 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable } from 'rxjs';
-import { withLatestFrom, tap } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { concatMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { DataElementService } from '../../services/data-element.service';
-import { State } from '../reducers/data-element.reducer';
 import {
-  DataElementActionTypes,
-  LoadDataElements,
-  LoadDataElementsInitiated,
-  AddDataElements,
-  LoadDataElementsFail
+  addDataElements,
+  loadDataElements,
+  loadDataElementsFail,
+  loadDataElementsInitiated
 } from '../actions/data-element.actions';
+import { DataElementState } from '../reducers/data-element.reducer';
 import { getDataElementsInitiatedStatus } from '../selectors/data-element.selectors';
 
 @Injectable()
 export class DataElementEffects {
-  @Effect({ dispatch: false })
-  loadDataElements$: Observable<any> = this.actions$.pipe(
-    ofType(DataElementActionTypes.LoadDataElements),
-    withLatestFrom(
-      this.dataElementStore.select(getDataElementsInitiatedStatus)
-    ),
-    tap(([action, dataElementInitiated]: [LoadDataElements, boolean]) => {
-      if (!dataElementInitiated) {
-        this.dataElementStore.dispatch(new LoadDataElementsInitiated());
-        this.dataElementService.loadAll().subscribe(
-          (dataElements: any[]) => {
-            this.dataElementStore.dispatch(new AddDataElements(dataElements));
-          },
-          (error: any) => {
-            this.dataElementStore.dispatch(new LoadDataElementsFail(error));
+  loadDataElements$: Observable<any> = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loadDataElements),
+        concatMap(action =>
+          of(action).pipe(
+            withLatestFrom(
+              this.dataElementStore.select(getDataElementsInitiatedStatus)
+            )
+          )
+        ),
+        tap(([{}, dataElementInitiated]) => {
+          if (!dataElementInitiated) {
+            this.dataElementStore.dispatch(loadDataElementsInitiated());
+            this.dataElementService.loadAll().subscribe(
+              (dataElements: any[]) => {
+                this.dataElementStore.dispatch(
+                  addDataElements({ dataElements })
+                );
+              },
+              (error: any) => {
+                this.dataElementStore.dispatch(loadDataElementsFail(error));
+              }
+            );
           }
-        );
-      }
-    })
+        })
+      ),
+    { dispatch: false }
   );
 
   constructor(
     private actions$: Actions,
     private dataElementService: DataElementService,
-    private dataElementStore: Store<State>
+    private dataElementStore: Store<DataElementState>
   ) {}
 }
