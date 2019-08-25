@@ -1,5 +1,5 @@
 import { DataGroup } from '../models/data-group.model';
-import * as _ from 'lodash';
+import { flatten, map, differenceBy, slice, find } from 'lodash';
 
 export function addMembersToGroups(
   dataGroups: DataGroup[],
@@ -10,10 +10,10 @@ export function addMembersToGroups(
   const maximumItemPerGroup = dataGroupPreferences
     ? dataGroupPreferences.maximumItemPerGroup
     : (members || []).length;
-  let availableMembers = _.differenceBy(
+  let availableMembers = differenceBy(
     members,
-    _.flatten(
-      _.map(dataGroups, (dataGroup: DataGroup) =>
+    flatten(
+      map(dataGroups, (dataGroup: DataGroup) =>
         dataGroup ? dataGroup.members || [] : []
       )
     ),
@@ -21,11 +21,11 @@ export function addMembersToGroups(
   );
 
   // Assign to the selected group first until maximum number is reached
-  let selectedGroup = _.find(dataGroups || [], ['id', selectedGroupId]);
+  let selectedGroup = find(dataGroups || [], ['id', selectedGroupId]);
   const selectedGroupIndex = (dataGroups || []).indexOf(selectedGroup);
 
   if (selectedGroup) {
-    const membersForSelectedGroup = _.slice(
+    const membersForSelectedGroup = slice(
       availableMembers,
       0,
       maximumItemPerGroup - selectedGroup.members.length
@@ -36,34 +36,28 @@ export function addMembersToGroups(
       members: [...selectedGroup.members, ...membersForSelectedGroup]
     };
 
-    availableMembers = _.differenceBy(
-      availableMembers,
-      membersForSelectedGroup
-    );
+    availableMembers = differenceBy(availableMembers, membersForSelectedGroup);
   }
 
-  return _.map(
+  return map(
     selectedGroupIndex > -1
       ? [
-          ..._.slice(dataGroups, 0, selectedGroupIndex),
+          ...slice(dataGroups, 0, selectedGroupIndex),
           selectedGroup,
-          ..._.slice(dataGroups, selectedGroupIndex + 1)
+          ...slice(dataGroups, selectedGroupIndex + 1)
         ]
       : dataGroups,
     (dataGroup: any) => {
       if (!dataGroup) {
         return null;
       }
-      const membersForCurrentGroup = _.slice(
+      const membersForCurrentGroup = slice(
         availableMembers,
         0,
         maximumItemPerGroup - (dataGroup.members || []).length
       );
 
-      availableMembers = _.differenceBy(
-        availableMembers,
-        membersForCurrentGroup
-      );
+      availableMembers = differenceBy(availableMembers, membersForCurrentGroup);
 
       return {
         ...dataGroup,
