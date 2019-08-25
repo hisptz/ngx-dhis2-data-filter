@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import * as _ from 'lodash';
+import { map, flatten, find, uniqBy, keys, filter, omit, sortBy } from 'lodash';
 
 import { DataFilterSelection } from '../../models/data-filter-selection.model';
 import {
@@ -42,7 +42,7 @@ const getDataFilterGroupEntities = (
             ).map((id: string) => {
               const dataSelectionEntity = dataSelection.entities[id];
               return {
-                ..._.omit(
+                ...omit(
                   dataSelectionEntity,
                   dataFilterSelection.itemsReference
                     ? dataFilterSelection.itemsReference.key
@@ -88,11 +88,11 @@ const getDataFilterGroupsWithItems = (
     (activeDataFilterSelections: string[], dataFilterGroupEntities: any) => {
       const selectionKeys =
         activeDataFilterSelections[0] === 'all'
-          ? _.keys(dataFilterGroupEntities)
+          ? keys(dataFilterGroupEntities)
           : activeDataFilterSelections;
 
-      return _.flatten(
-        _.map(
+      return flatten(
+        map(
           selectionKeys,
           (selectionKey: string) => dataFilterGroupEntities[selectionKey]
         )
@@ -124,9 +124,9 @@ export const getDataFilterGroups = (
           name: '[ All ]',
           selected: currentDataFilterGroupId === 'all'
         },
-        ..._.sortBy(
-          _.map(dataFilterGroupWithItems, (dataFilterGroup: any) =>
-            _.omit(
+        ...sortBy(
+          map(dataFilterGroupWithItems, (dataFilterGroup: any) =>
+            omit(
               {
                 ...dataFilterGroup,
                 selected: dataFilterGroup.id === currentDataFilterGroupId
@@ -147,8 +147,8 @@ export const getCurrentDataFilterGroup = (
     getDataFilterGroups(dataFilterSelections),
     getCurrentDataFilterGroupId,
     (dataFilterGroups: any[], currentDataFilterGroupId: string) =>
-      _.find(dataFilterGroups, ['id', currentDataFilterGroupId]) ||
-      _.find(dataFilterGroups, ['id', 'all'])
+      find(dataFilterGroups, ['id', currentDataFilterGroupId]) ||
+      find(dataFilterGroups, ['id', 'all'])
   );
 
 export const getDataFilterItems = (
@@ -163,10 +163,10 @@ export const getDataFilterItems = (
       }
 
       if (currentDataFilterGroup.id === 'all') {
-        return _.sortBy(
-          _.uniqBy(
-            _.flatten(
-              _.map(
+        return sortBy(
+          uniqBy(
+            flatten(
+              map(
                 dataFilterGroups,
                 (dataFilterGroup: any) => dataFilterGroup.items
               )
@@ -177,11 +177,11 @@ export const getDataFilterItems = (
         );
       }
 
-      return _.sortBy(
-        _.uniqBy(
-          _.flatten(
-            _.map(
-              _.filter(
+      return sortBy(
+        uniqBy(
+          flatten(
+            map(
+              filter(
                 dataFilterGroups,
                 (dataFilterGroup: any) =>
                   dataFilterGroup.id === currentDataFilterGroup.id

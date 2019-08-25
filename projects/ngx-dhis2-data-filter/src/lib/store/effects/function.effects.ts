@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import * as _ from 'lodash';
+import { find } from 'lodash';
 import { Observable, of } from 'rxjs';
 import {
   catchError,
@@ -56,7 +56,7 @@ export class FunctionEffects {
                   functions,
                   routeParams ? routeParams.function || '' : ''
                 );
-                const selectedFunction = _.find(standardizedFunctions, [
+                const selectedFunction = find(standardizedFunctions, [
                   'selected',
                   true
                 ]);

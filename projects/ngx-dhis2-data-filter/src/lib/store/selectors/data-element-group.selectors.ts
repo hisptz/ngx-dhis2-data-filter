@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import * as _ from 'lodash';
+import { map, filter } from 'lodash';
 
 import { DataElementGroup } from '../../models/data-element-group.model';
 import { DataElement } from '../../models/data-element.model';
@@ -39,12 +39,12 @@ export const getDataElementGroups = createSelector(
     dataElementGroups: DataElementGroup[],
     dataElementEntities: { [id: string]: DataElement }
   ) => {
-    return _.map(dataElementGroups, (dataElementGroup: DataElementGroup) => {
+    return map(dataElementGroups, (dataElementGroup: DataElementGroup) => {
       return {
         id: dataElementGroup.id,
         name: dataElementGroup.name,
-        items: _.filter(
-          _.map(
+        items: filter(
+          map(
             dataElementGroup.dataElements || [],
             (dataElementId: string) => dataElementEntities[dataElementId]
           ),

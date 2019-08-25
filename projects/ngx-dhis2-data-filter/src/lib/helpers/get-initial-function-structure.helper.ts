@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { omit } from 'lodash';
 import { FunctionObject } from '../models/function.model';
 import { FunctionRule } from '../models/function-rule.model';
 
@@ -13,7 +13,7 @@ export function getInitialFunctionStructure(
     displayName: functionObject.name,
     href: contextPath + '?api/dataStore/functions/' + functionObject.id,
     rules: (functionObject.rules || []).map((rule: FunctionRule) =>
-      _.omit(rule, ['selected', 'active', 'simulating'])
+      omit(rule, ['selected', 'active', 'simulating'])
     )
   };
 }

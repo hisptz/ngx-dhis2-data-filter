@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import * as _ from 'lodash';
+import { find } from 'lodash';
 
 import { FunctionObject } from '../../models/function.model';
 import {
@@ -42,7 +42,7 @@ const reducer = createReducer(
     adapter.addOne(functionObject, state)
   ),
   on(addFunctions, (state, { functions }) => {
-    const selectedFunction = _.find(functions, ['selected', true]);
+    const selectedFunction = find(functions, ['selected', true]);
     return adapter.addMany(functions, {
       ...state,
       loaded: true,

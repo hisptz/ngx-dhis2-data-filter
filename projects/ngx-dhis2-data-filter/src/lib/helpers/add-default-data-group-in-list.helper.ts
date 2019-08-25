@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { map } from 'lodash';
 import { DataGroup } from '../models/data-group.model';
 
 export function addDefaultDataGroupInList(
@@ -6,7 +6,7 @@ export function addDefaultDataGroupInList(
   newGroupId: string
 ): DataGroup[] {
   return [
-    ..._.map(dataGroups, (dataGroup: DataGroup) => {
+    ...map(dataGroups, (dataGroup: DataGroup) => {
       return { ...dataGroup, current: false };
     }),
     {

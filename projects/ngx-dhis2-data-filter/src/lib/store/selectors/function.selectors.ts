@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import * as _ from 'lodash';
+import { filter, keys, map } from 'lodash';
 
 import { FunctionObject } from '../../models/function.model';
 import {
@@ -62,7 +62,7 @@ export const getFunctions = (
       functionRuleEntities: any,
       activeFunctionId: string
     ) =>
-      _.map(functionList, (functionObject: FunctionObject) => {
+      map(functionList, (functionObject: FunctionObject) => {
         return functionObject
           ? {
               id: functionObject.id,
@@ -70,8 +70,8 @@ export const getFunctions = (
               active: functionObject.id === activeFunctionId,
               [ruleKeyName || 'items']: onlyRuleIds
                 ? functionObject.rules
-                : _.filter(
-                    _.map(functionObject.rules || [], ruleId => {
+                : filter(
+                    map(functionObject.rules || [], ruleId => {
                       const functionRule = functionRuleEntities[ruleId];
                       return functionRule
                         ? {
@@ -123,10 +123,10 @@ export const getSelectedFunctions = createSelector(
       return [];
     }
 
-    return functionList.length > 0 && _.keys(functionRuleEntities).length > 0
-      ? _.filter(
-          _.map(
-            _.filter(
+    return functionList.length > 0 && keys(functionRuleEntities).length > 0
+      ? filter(
+          map(
+            filter(
               functionList,
               (functionObject: FunctionObject) => functionObject.selected
             ),
@@ -134,8 +134,8 @@ export const getSelectedFunctions = createSelector(
               return selectedFunction
                 ? {
                     ...selectedFunction,
-                    rules: _.filter(
-                      _.map(
+                    rules: filter(
+                      map(
                         selectedFunction.rules || [],
                         ruleId => functionRuleEntities[ruleId]
                       ),
@@ -160,8 +160,8 @@ export const getFunctionRulesForActiveFunction = createSelector(
     activeFunction: FunctionObject,
     activeRuleId: string
   ) =>
-    _.filter(
-      _.map(activeFunction ? activeFunction.rules : [], (ruleId: string) => {
+    filter(
+      map(activeFunction ? activeFunction.rules : [], (ruleId: string) => {
         const functionRule: FunctionRule = functionRuleEntities[ruleId];
         return functionRule
           ? {
