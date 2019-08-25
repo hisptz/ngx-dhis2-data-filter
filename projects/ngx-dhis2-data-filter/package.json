@@ -15,10 +15,8 @@
     "@angular/material": "^7.3.7 || ^8.0.0",
     "@ngrx/effects": "^8.1.0",
     "@ngrx/entity": "^8.1.0",
-    "@ngrx/store": "^8.1.0"
-  },
-  "dependencies": {
-    "@iapps/ngx-dhis2-http-client": "^2.0.7",
+    "@ngrx/store": "^8.1.0",
+    "@iapps/ngx-dhis2-http-client": "^2.0.8-beta.2",
     "ng2-dragula": "^2.1.1",
     "ngx-color-picker": "^7.5.0",
     "ngx-pagination": "^3.2.1",
