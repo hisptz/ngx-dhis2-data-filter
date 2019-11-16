@@ -15,7 +15,7 @@ import { FunctionRule } from '../../models/function-rule.model';
 
 export const getFunctionState = createSelector(
   getDataFilterState,
-  (state: DataFilterState) => state.function
+  (state: DataFilterState) => (state ? state.function : null)
 );
 
 export const {

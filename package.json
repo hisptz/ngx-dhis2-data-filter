@@ -25,6 +25,7 @@
     "@angular/platform-browser": "^9.0.0-next.2",
     "@angular/platform-browser-dynamic": "^9.0.0-next.2",
     "@angular/router": "^9.0.0-next.2",
+    "@iapps/ngx-dhis2-data-filter": "file:dist/ngx-dhis2-data-filter/iapps-ngx-dhis2-data-filter-1.0.0-beta.15.tgz",
     "@iapps/ngx-dhis2-http-client": "^2.0.8-beta.2",
     "@ngrx/effects": "^8.2.0",
     "@ngrx/entity": "^8.2.0",
