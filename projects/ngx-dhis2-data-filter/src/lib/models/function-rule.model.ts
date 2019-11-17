@@ -7,4 +7,5 @@ export interface FunctionRule {
   active?: boolean;
   simulating?: boolean;
   saving?: boolean;
+  json: string;
 }
