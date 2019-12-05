@@ -56,7 +56,7 @@ export class FunctionService {
   }
 
   save(functionObject: FunctionObject, currentUser: any) {
-    return this.http.get('system/info').pipe(
+    return this.http.systemInfo().pipe(
       mergeMap((systemInfo: any) => {
         const functionObjectToSave = prepareFunctionForSaving(
           functionObject,
@@ -215,7 +215,7 @@ export class FunctionService {
               }
             );
           } else {
-            this.http.get('system/info').subscribe((response: any) => {
+            this.http.systemInfo().subscribe((response: any) => {
               forkJoin(this.getFunctionCreationPromises(currentUser)).subscribe(
                 (responses: any) => {
                   this.getAll(currentUser).subscribe(
@@ -240,7 +240,7 @@ export class FunctionService {
         error => {
           if (error.status === 404) {
             const observable = [];
-            this.http.get('system/info').subscribe((response: any) => {
+            this.http.systemInfo().subscribe((response: any) => {
               forkJoin(this.getFunctionCreationPromises(currentUser)).subscribe(
                 (responses: any) => {
                   this.getAll(currentUser).subscribe(
@@ -248,14 +248,14 @@ export class FunctionService {
                       observ.next(funcs);
                       observ.complete();
                     },
-                    error => {
-                      observ.error(error);
+                    errorAll => {
+                      observ.error(errorAll);
                       observ.complete();
                     }
                   );
                 },
-                error => {
-                  observ.error(error);
+                errorCreation => {
+                  observ.error(errorCreation);
                   observ.complete();
                 }
               );
